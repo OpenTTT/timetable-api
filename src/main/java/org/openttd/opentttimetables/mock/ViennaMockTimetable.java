@@ -7,13 +7,13 @@ import java.util.Arrays;
 
 public class ViennaMockTimetable {
 
-    private static RouteNode VIENNA_BREITENSEE = RouteNode.builder()
+    private static Destination VIENNA_BREITENSEE = Destination.builder()
         .name("Wien Breitensee")
-        .nodeType(RouteNode.NodeType.STATION)
+        .nodeType(Destination.NodeType.STATION)
         .build();
-    private static RouteNode VIENNA_OTTAKRING = RouteNode.builder()
+    private static Destination VIENNA_OTTAKRING = Destination.builder()
             .name("Wien Ottakring")
-            .nodeType(RouteNode.NodeType.STATION)
+            .nodeType(Destination.NodeType.STATION)
             .build();
 
     public static ScheduledDispatch VIENNA_DISPATCH = ScheduledDispatch.builder()
@@ -23,12 +23,12 @@ public class ViennaMockTimetable {
                     TimetabledOrder.builder()
                             .stayingTime(1)
                             .travelingTime(5)
-                            .order(Destination.builder().destination(VIENNA_BREITENSEE).build())
+                            .order(Order.builder().destination(VIENNA_BREITENSEE).build())
                             .build(),
                     TimetabledOrder.builder()
                             .stayingTime(1)
                             .travelingTime(7)
-                            .order(Destination.builder().destination(VIENNA_OTTAKRING).build())
+                            .order(Order.builder().destination(VIENNA_OTTAKRING).build())
                             .build()
             ))
             .build();
