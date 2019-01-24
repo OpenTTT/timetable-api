@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 @Builder
 public class Platform {
-    private List<Order> connectedRoutes;
+    private List<Destination> connectedRoutes;
 }

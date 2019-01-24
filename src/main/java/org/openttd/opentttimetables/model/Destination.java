@@ -4,7 +4,7 @@ import lombok.*;
 
 @Data
 @Builder
-public class Order {
+public class Destination {
     private String name;
     private RouteNode destination;
 }

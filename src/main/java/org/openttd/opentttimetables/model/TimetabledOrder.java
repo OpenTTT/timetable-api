@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @Builder
 public class TimetabledOrder {
-    private Order order;
+    private Destination destination;
     private Integer stayingTime;
     private Integer travelingTime;
 }

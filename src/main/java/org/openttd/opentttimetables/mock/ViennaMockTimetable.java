@@ -4,7 +4,6 @@ import org.openttd.opentttimetables.model.*;
 
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ViennaMockTimetable {
 
@@ -24,12 +23,12 @@ public class ViennaMockTimetable {
                     TimetabledOrder.builder()
                             .stayingTime(1)
                             .travelingTime(5)
-                            .order(Order.builder().destination(VIENNA_BREITENSEE).build())
+                            .order(Destination.builder().destination(VIENNA_BREITENSEE).build())
                             .build(),
                     TimetabledOrder.builder()
                             .stayingTime(1)
                             .travelingTime(7)
-                            .order(Order.builder().destination(VIENNA_OTTAKRING).build())
+                            .order(Destination.builder().destination(VIENNA_OTTAKRING).build())
                             .build()
             ))
             .build();
