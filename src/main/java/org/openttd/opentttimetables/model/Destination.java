@@ -2,22 +2,37 @@ package org.openttd.opentttimetables.model;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * Represents something that a route can go through, like stations or waypoints
  */
-@Data
+@Getter
+@Setter
 @Builder
+@Entity
 public class Destination {
-    public enum NodeType {
+    public enum DestinationType {
         STATION,
         WAYPOINT,
         DEPOT
     }
 
+    public Destination() {
+
+    }
+
+    public Destination(String name, DestinationType destinationType) {
+        this.name = name;
+        this.destinationType = destinationType;
+    }
+
+    @Id
     private String name;
-    private List<Platform> platforms = new ArrayList<>();
-    private NodeType nodeType;
+
+    @NotNull
+    private Destination.DestinationType destinationType;
 }

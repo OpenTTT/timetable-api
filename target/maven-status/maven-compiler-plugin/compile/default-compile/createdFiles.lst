@@ -1,0 +1,16 @@
+org/openttd/opentttimetables/model/ScheduledDispatch$ScheduledDispatchBuilder.class
+org/openttd/opentttimetables/model/TimetabledOrder.class
+org/openttd/opentttimetables/model/TimetabledOrder$TimetabledOrderBuilder.class
+org/openttd/opentttimetables/rest/DestinationController.class
+org/openttd/opentttimetables/mock/ViennaMockTimetable.class
+org/openttd/opentttimetables/model/Platform.class
+org/openttd/opentttimetables/model/Destination.class
+org/openttd/opentttimetables/timetabling/SingleDispatchTimetable.class
+org/openttd/opentttimetables/model/Order$OrderBuilder.class
+org/openttd/opentttimetables/model/Platform$PlatformBuilder.class
+org/openttd/opentttimetables/repo/DestinationRepo.class
+org/openttd/opentttimetables/model/ScheduledDispatch.class
+org/openttd/opentttimetables/model/Destination$DestinationType.class
+org/openttd/opentttimetables/OpenTTTimetablesApplication.class
+org/openttd/opentttimetables/model/Destination$DestinationBuilder.class
+org/openttd/opentttimetables/model/Order.class
