@@ -1,11 +1,8 @@
 package org.openttd.opentttimetables.mock;
 
 import org.openttd.opentttimetables.model.Destination;
-import org.openttd.opentttimetables.model.ScheduledDispatch;
 import org.openttd.opentttimetables.model.TimetabledOrder;
-import org.openttd.opentttimetables.model.ScheduledOrder;
 
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,10 +25,10 @@ public class IvarMpMock {
             new TimetabledOrder(destinations.get(2), 2, 7),
             new TimetabledOrder(destinations.get(1), 4, 16)
     );
-
+/*
     public static ScheduledDispatch dispatch = new ScheduledDispatch(
             Arrays.asList(LocalTime.of(6, 0), LocalTime.of(6, 45)),
             90,
             orders
-    );
+    );*/
 }

@@ -24,30 +24,4 @@ public class OpenTTTimetablesApplication {
     public static void main(String[] args) {
         SpringApplication.run(OpenTTTimetablesApplication.class, args);
     }
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-            List<Schedule> schedules = Schedules.nextTwentyFive(IvarMpMock.dispatch);
-
-            for (Schedule schedule : schedules) {
-                System.out.println("Departure at " + schedule.getFirstDeparture() + ":");
-                printSchedule(schedule);
-            }
-        };
-    }
-
-    private void printSchedule(Schedule schedule) {
-        String tabs = "\t\t";
-        for (ScheduledOrder order : schedule.getOrders()) {
-            System.out.print("\t");
-            System.out.print(order.getArrival());
-            System.out.print(tabs);
-            System.out.print(order.getDeparture());
-            System.out.print(tabs);
-            System.out.print(order.getDestination());
-            System.out.println();
-        }
-
-    }
-
 }

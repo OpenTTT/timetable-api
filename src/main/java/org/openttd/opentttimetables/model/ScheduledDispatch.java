@@ -1,76 +1,36 @@
 package org.openttd.opentttimetables.model;
 
-import lombok.Data;
+import com.google.common.base.Preconditions;
 
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Direct represenation of the "Scheduled Dispatch" dialogue in OpenTTD.
  *
  * Contains methods to generate single schedules for the dispatch based on its timetabled orders.
  */
-@Data
 public class ScheduledDispatch {
-    private List<LocalTime> departures;
+    /**
+     * The interval after which the dispatching continues.
+     */
     private Integer intervalInMinutes;
+    /**
+     * The departures within the interval, as offset from the start time in minutes.
+     */
+    private List<Integer> departures;
+    /**
+     * The orders this scheduled dispatch should encompass.
+     */
     private List<TimetabledOrder> orders;
 
-
-    public ScheduledDispatch(List<LocalTime> departures, Integer intervalInMinutes, List<TimetabledOrder> orders) {
-        this.departures = departures;
+    public ScheduledDispatch(Integer intervalInMinutes, List<Integer> departures, List<TimetabledOrder> orders) {
+        Preconditions.checkArgument(intervalInMinutes > 0, "interval must be larger than zero.");
+        Preconditions.checkArgument(departures.size() > 0, "departures may not be empty");
+        Preconditions.checkArgument(departures.stream().noneMatch(i -> i >= intervalInMinutes),
+                "no departure may be later than the interval");
+        Preconditions.checkArgument(orders.size() >= 2, "order list must contain two orders");
         this.intervalInMinutes = intervalInMinutes;
+        this.departures = departures;
         this.orders = orders;
-    }
-
-    // TODO: maybe a stream?
-    public List<Schedule> schedulesForInterval() {
-        return departures.stream()
-                .map(this::scheduleOrdersForDeparture)
-                .collect(Collectors.toList());
-    }
-
-    public Stream<Schedule> schedules() {
-        return Stream.generate(new Generator());
-    }
-
-    private Schedule scheduleOrdersForDeparture(LocalTime departure) {
-        LocalTime currentTime = LocalTime.from(departure);
-        List<ScheduledOrder> scheduledOrders = new ArrayList<>(orders.size());
-        for (TimetabledOrder order : orders) {
-            ScheduledOrder scheduledOrder = new ScheduledOrder(order, currentTime);
-            currentTime = scheduledOrder.getDeparture().plusMinutes(order.getTravelingTime());
-            scheduledOrders.add(scheduledOrder);
-        }
-
-
-
-        return new Schedule(scheduledOrders);
-    }
-
-    // TODO this complete class is utterly disgusting. I want to kill myself.
-    private class Generator implements Supplier<Schedule> {
-        private LocalTime baseTime = departures.get(0);
-        private LocalTime currentTime = departures.get(0);
-        private int offsetIndex = 0;
-        private List<Integer> offsets = departures.stream().map(d -> (int)ChronoUnit.MINUTES.between(currentTime, d)).collect(Collectors.toList());
-
-        @Override
-        public Schedule get() {
-            Schedule schedule = scheduleOrdersForDeparture(currentTime);
-            if (++offsetIndex < offsets.size()) {
-                currentTime = baseTime.plusMinutes(offsets.get(offsetIndex));
-            } else {
-                baseTime = baseTime.plusMinutes(intervalInMinutes);
-                offsetIndex = 0;
-                currentTime = baseTime.plusMinutes(offsets.get(offsetIndex));
-            }
-            return schedule;
-        }
     }
 }
