@@ -25,8 +25,11 @@ public class ScheduledOrder {
         return arrival.plusMinutes(order.getStayingTime());
     }
 
-
     public Destination getDestination() {
         return order.getDestination();
+    }
+
+    public TimetabledOrder getTimetabledOrder() {
+        return order;
     }
 }

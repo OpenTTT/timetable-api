@@ -16,6 +16,12 @@ public class TestData {
             "Obernburg", Destination.station("Obernburg"),
             "Veringenstadt", Destination.station("Veringenstadt")
     );
+
+    public static final List<TimetabledOrder> SIMPLE_ORDERS = List.of(
+            new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Rheinstetten"), 1, 9),
+            new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Crailsheim"), 1, 9)
+    );
+
     public static final List<TimetabledOrder> VIRM4_MP_ORDERS = List.of(
             new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Rosenheim"), 10, 17),
             new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Rheinstetten"), 3, 8),

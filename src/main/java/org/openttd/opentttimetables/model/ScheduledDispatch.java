@@ -29,6 +29,7 @@ public class ScheduledDispatch {
         Preconditions.checkArgument(departures.stream().noneMatch(i -> i >= intervalInMinutes),
                 "no departure may be later than the interval");
         Preconditions.checkArgument(orders.size() >= 2, "order list must contain two orders");
+
         this.intervalInMinutes = intervalInMinutes;
         this.departures = departures;
         this.orders = orders;
