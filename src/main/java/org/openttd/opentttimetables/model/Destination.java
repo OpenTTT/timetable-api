@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 
 /**
- * Represents something that a route can go through, like stations or waypoints
+ * Represents something that a route can go through, like stations or way points.
  */
 @Getter
 @Setter
@@ -35,4 +35,13 @@ public class Destination {
 
     @NotNull
     private Destination.DestinationType destinationType;
+
+    public static Destination station(String name) {
+        return new Destination(name, DestinationType.STATION);
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

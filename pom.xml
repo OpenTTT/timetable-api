@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.openttd</groupId>
-    <artifactId>opentttimetables</artifactId>
+    <artifactId>OpenTTTimetables</artifactId>
     <version>1.0-SNAPSHOT</version>
     <description>Backend component for the OpenTTTimetables project</description>
 
