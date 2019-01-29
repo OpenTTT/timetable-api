@@ -34,4 +34,16 @@ public class ScheduledDispatch {
         this.departures = departures;
         this.orders = orders;
     }
+
+    public List<TimetabledOrder> getOrders() {
+        return orders;
+    }
+
+    public List<Integer> getDepartures() {
+        return departures;
+    }
+
+    public Integer getIntervalInMinutes() {
+        return intervalInMinutes;
+    }
 }

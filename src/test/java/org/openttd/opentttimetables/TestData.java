@@ -1,6 +1,7 @@
 package org.openttd.opentttimetables;
 
 import org.openttd.opentttimetables.model.Destination;
+import org.openttd.opentttimetables.model.ScheduledDispatch;
 import org.openttd.opentttimetables.model.TimetabledOrder;
 
 import java.util.List;
@@ -31,5 +32,11 @@ public class TestData {
             new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Obernburg"), 5, 11),
             new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Crailsheim"), 2, 7),
             new TimetabledOrder(VIRM4_MP_DESTINATIONS.get("Rheinstetten"), 4, 16)
+    );
+
+    public static final ScheduledDispatch SIMPLE_DISPATCH = new ScheduledDispatch(
+            60,
+            List.of(0, 30),
+            SIMPLE_ORDERS
     );
 }
