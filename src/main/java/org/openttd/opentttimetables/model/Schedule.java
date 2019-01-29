@@ -24,4 +24,9 @@ public class Schedule {
     public List<ScheduledOrder> getOrders() {
         return orders;
     }
+
+    @Override
+    public String toString() {
+        return "Departure from " + orders.get(0).getDestination() + " at " + getFirstDeparture();
+    }
 }

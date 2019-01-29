@@ -27,7 +27,7 @@ public class OpenTTTimetablesApplication {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-            List<Schedule> schedules = Schedules.getScheduleFor(IvarMpMock.dispatch);
+            List<Schedule> schedules = Schedules.nextTwentyFive(IvarMpMock.dispatch);
 
             for (Schedule schedule : schedules) {
                 System.out.println("Departure at " + schedule.getFirstDeparture() + ":");
