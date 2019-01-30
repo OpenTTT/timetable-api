@@ -1,7 +1,5 @@
 package org.openttd.opentttimetables.model;
 
-import lombok.*;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -10,9 +8,6 @@ import javax.validation.constraints.NotNull;
 /**
  * Represents something that a route can go through, like stations or way points.
  */
-@Getter
-@Setter
-@Builder
 @Entity
 public class Destination {
     public enum DestinationType {
@@ -22,7 +17,6 @@ public class Destination {
     }
 
     public Destination() {
-
     }
 
     public Destination(String name, DestinationType destinationType) {
@@ -36,12 +30,28 @@ public class Destination {
     @NotNull
     private Destination.DestinationType destinationType;
 
-    public static Destination station(String name) {
-        return new Destination(name, DestinationType.STATION);
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DestinationType getDestinationType() {
+        return destinationType;
+    }
+
+    public void setDestinationType(DestinationType destinationType) {
+        this.destinationType = destinationType;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public static Destination station(String name) {
+        return new Destination(name, DestinationType.STATION);
     }
 }
