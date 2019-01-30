@@ -23,7 +23,7 @@ public class ScheduleSupplier implements Supplier<Schedule> {
 
     @Override
     public Schedule get() {
-        DepartureScheduler scheduler = new DepartureScheduler(currentTime, scheduledDispatch.getOrders());
+        DepartureScheduler scheduler = new DepartureScheduler(currentTime, scheduledDispatch.getTimetable());
 
         if (++currentOffsetIndex < scheduledDispatch.getDepartures().size()) {
             currentTime = currentTime.plusMinutes(offsetForCurrentIndex());

@@ -21,22 +21,26 @@ public class ScheduledDispatch {
     /**
      * The orders this scheduled dispatch should encompass.
      */
-    private List<TimetabledOrder> orders;
+    private Timetable timetable;
 
-    public ScheduledDispatch(Integer intervalInMinutes, List<Integer> departures, List<TimetabledOrder> orders) {
+    public ScheduledDispatch(Integer intervalInMinutes, List<Integer> departures, Timetable timetable) {
         Preconditions.checkArgument(intervalInMinutes > 0, "interval must be larger than zero.");
         Preconditions.checkArgument(departures.size() > 0, "departures may not be empty");
         Preconditions.checkArgument(departures.stream().noneMatch(i -> i >= intervalInMinutes),
                 "no departure may be later than the interval");
-        Preconditions.checkArgument(orders.size() >= 2, "order list must contain two orders");
+        Preconditions.checkArgument(timetable.getOrders().size() >= 2, "order list must contain two orders");
 
         this.intervalInMinutes = intervalInMinutes;
         this.departures = departures;
-        this.orders = orders;
+        this.timetable = timetable;
+    }
+
+    public Timetable getTimetable() {
+        return timetable;
     }
 
     public List<TimetabledOrder> getOrders() {
-        return orders;
+        return timetable.getOrders();
     }
 
     public List<Integer> getDepartures() {

@@ -29,18 +29,4 @@ public class ScheduledDispatchTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("departure");
     }
-
-    @Test
-    public void cantCreateWithoutOrders() {
-        assertThatThrownBy(() -> new ScheduledDispatch(60, VALID_DEPARTURES, List.of()))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("two orders");
-    }
-
-    @Test
-    public void cantCreateWithSingularOrder() {
-        assertThatThrownBy(() -> new ScheduledDispatch(60, VALID_DEPARTURES, TestData.VIRM4_MP_ORDERS.subList(0, 1)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("two orders");
-    }
 }

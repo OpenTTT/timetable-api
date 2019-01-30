@@ -16,7 +16,7 @@ public class DepartureSchedulerTest {
         Schedule schedule = givenSimpleGeneratedSchedule();
 
         assertThat(schedule).isNotNull();
-        assertThat(schedule.orders()).hasSize(TestData.SIMPLE_ORDERS.size());
+        assertThat(schedule.orders()).hasSize(TestData.SIMPLE_ORDERS.getOrders().size());
         assertThat(schedule.getStartTime()).isEqualTo(MIDNIGHT);
     }
 
