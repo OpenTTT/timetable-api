@@ -1,9 +1,11 @@
 package org.openttd.opentttimetables;
 
 import org.openttd.opentttimetables.model.Destination;
+import org.openttd.opentttimetables.model.ScheduledDispatch;
 import org.openttd.opentttimetables.model.Timetable;
 import org.openttd.opentttimetables.model.TimetabledOrder;
 import org.openttd.opentttimetables.repo.DestinationRepo;
+import org.openttd.opentttimetables.repo.ScheduledDispatchRepo;
 import org.openttd.opentttimetables.repo.TimetableRepo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +36,21 @@ public class CreateFakeDataBean implements InitializingBean {
             ))
     );
 
+    private static final ScheduledDispatch VIRM4_DISPATCH = new ScheduledDispatch(
+            90,
+            List.of(0, 45),
+            TIMETABLES.get(0)
+    );
+
     @Autowired
     private DestinationRepo destinationRepo;
 
     @Autowired
     private TimetableRepo timetableRepo;
+
+    @Autowired
+    private ScheduledDispatchRepo dispatchRepo;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         for (Destination destination : DESTINATIONS) {
@@ -48,5 +60,7 @@ public class CreateFakeDataBean implements InitializingBean {
         for (Timetable timetable : TIMETABLES) {
             timetableRepo.save(timetable);
         }
+
+        dispatchRepo.save(VIRM4_DISPATCH);
     }
 }
