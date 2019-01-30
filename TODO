@@ -1,0 +1,3 @@
+tests: REST API, especially Entity <-> DTO conversion
+tests: REST API, defensive programming
+check why lombok does not work and unclutter some entities/dtos
