@@ -11,12 +11,12 @@ public class TimetableTest {
     @Test
     public void testCantCreateTimetableWithEmptyOrders() {
         assertThatThrownBy(() -> new Timetable("invalid", List.of()))
-                .hasMessageContaining("two orders");
+                .hasMessageContaining("two getOrders");
     }
 
     @Test
     public void testCantCreateTimetableWithOneOrder() {
         assertThatThrownBy(() -> new Timetable("invalid", List.of(SINGLE_ORDER)))
-                .hasMessageContaining("two orders");
+                .hasMessageContaining("two getOrders");
     }
 }

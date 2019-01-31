@@ -1,5 +1,8 @@
 package org.openttd.opentttimetables.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +11,8 @@ import javax.persistence.*;
  * True to OpenTTDs notation, it is defined as the station it is going to, and the time it takes it to get to the next
  * station.
  */
+@Getter
+@Setter
 @Entity
 public class TimetabledOrder {
     @Id
@@ -40,39 +45,4 @@ public class TimetabledOrder {
         return new TimetabledOrder(destination, Integer.MAX_VALUE, Integer.MAX_VALUE, true);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setDestination(Destination destination) {
-        this.destination = destination;
-    }
-
-    public void setStayingTime(Integer stayingTime) {
-        this.stayingTime = stayingTime;
-    }
-
-    public void setTravelingTime(Integer travelingTime) {
-        this.travelingTime = travelingTime;
-    }
-
-    public void setReturnOrder(boolean returnOrder) {
-        this.returnOrder = returnOrder;
-    }
-
-    public Destination getDestination() {
-        return destination;
-    }
-
-    public Integer getStayingTime() {
-        return stayingTime;
-    }
-
-    public Integer getTravelingTime() {
-        return travelingTime;
-    }
-
-    public boolean isReturnOrder() {
-        return returnOrder;
-    }
 }

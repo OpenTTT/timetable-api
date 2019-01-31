@@ -17,7 +17,7 @@ public class Timetable {
     private String name;
 
     /**
-     * The orders the timetable encompasses
+     * The getOrders the timetable encompasses
      */
     @OneToMany(cascade = CascadeType.ALL)
     private List<TimetabledOrder> orders;
@@ -26,7 +26,7 @@ public class Timetable {
     }
 
     public Timetable(String name, List<TimetabledOrder> orders) {
-        Preconditions.checkArgument(orders.size() >= 2, "Timetable must contain at least two orders");
+        Preconditions.checkArgument(orders.size() >= 2, "Timetable must contain at least two getOrders");
         this.name = name;
         this.orders = orders;
     }

@@ -16,7 +16,7 @@ public class DepartureSchedulerTest {
         Schedule schedule = givenSimpleGeneratedSchedule();
 
         assertThat(schedule).isNotNull();
-        assertThat(schedule.orders()).hasSize(TestData.SIMPLE_ORDERS.getOrders().size());
+        assertThat(schedule.getOrders()).hasSize(TestData.SIMPLE_ORDERS.getOrders().size());
         assertThat(schedule.getStartTime()).isEqualTo(MIDNIGHT);
     }
 
@@ -24,12 +24,12 @@ public class DepartureSchedulerTest {
     public void testOrdersOfGeneratedSchedule() {
         Schedule schedule = givenSimpleGeneratedSchedule();
 
-        ScheduledOrder firstOrder = schedule.orders().get(0);
+        ScheduledOrder firstOrder = schedule.getOrders().get(0);
         assertThat(firstOrder.getDestination()).isEqualTo(TestData.VIRM4_MP_DESTINATIONS.get("Rheinstetten"));
         assertThat(firstOrder.getArrival()).isEqualTo(MIDNIGHT);
         assertThat(firstOrder.getDeparture()).isEqualTo(MIDNIGHT.plusMinutes(1));
 
-        ScheduledOrder secondOrder = schedule.orders().get(1);
+        ScheduledOrder secondOrder = schedule.getOrders().get(1);
         assertThat(secondOrder.getDestination()).isEqualTo(TestData.VIRM4_MP_DESTINATIONS.get("Crailsheim"));
         assertThat(secondOrder.getArrival()).isEqualTo(LocalTime.of(0, 10));
         assertThat(secondOrder.getDeparture()).isEqualTo(LocalTime.of(0, 11));

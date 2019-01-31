@@ -79,7 +79,7 @@ public class ScheduledDispatchController {
     private ScheduleDTO toDto(Schedule schedule) {
         ScheduleDTO dto = new ScheduleDTO();
         dto.setOrders(
-                schedule.orders()
+                schedule.getOrders()
                         .stream()
                         .map(this::toDto)
                         .collect(Collectors.toList())
@@ -95,7 +95,7 @@ public class ScheduledDispatchController {
     }
 
     private List<SchedulesByStationDTO> toByStationDtos(List<Schedule> schedules) {
-        List<ScheduledOrder> arbitraryOrderList = schedules.get(0).orders();
+        List<ScheduledOrder> arbitraryOrderList = schedules.get(0).getOrders();
         List<SchedulesByStationDTO> dtos = Lists.newArrayListWithExpectedSize(arbitraryOrderList.size());
         for (int i = 0; i < arbitraryOrderList.size(); i++) {
             SchedulesByStationDTO byStationDto = new SchedulesByStationDTO();
@@ -103,7 +103,7 @@ public class ScheduledDispatchController {
 
             List<ScheduleDepartureDTO> departureDtos = Lists.newArrayListWithExpectedSize(schedules.size());
             for (Schedule schedule : schedules) {
-                ScheduledOrder orderForThisRowAndColumn = schedule.orders().get(i);
+                ScheduledOrder orderForThisRowAndColumn = schedule.getOrders().get(i);
                 departureDtos.add(new ScheduleDepartureDTO(
                         orderForThisRowAndColumn.getArrival(),
                         orderForThisRowAndColumn.getDeparture()

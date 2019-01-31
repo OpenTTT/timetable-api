@@ -19,7 +19,7 @@ public class Schedule {
         this.orders = orders;
     }
 
-    public List<ScheduledOrder> orders() {
+    public List<ScheduledOrder> getOrders() {
         return Collections.unmodifiableList(orders);
     }
 
