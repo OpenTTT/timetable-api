@@ -76,6 +76,7 @@ public class ScheduledDispatchController {
 
     private ScheduledDispatchDTO toDto(ScheduledDispatch dispatch) {
         ScheduledDispatchDTO dto = mapper.map(dispatch, ScheduledDispatchDTO.class);
+        dto.setTimetableId(dispatch.getTimetable().getId());
         dto.setTimetable(dispatch.getTimetable().getName());
         return dto;
     }

@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 public class ScheduledDispatchDTO {
     private Integer id;
+    private Integer timetableId;
     private Integer intervalInMinutes;
     private List<Integer> departures;
     private String timetable;
