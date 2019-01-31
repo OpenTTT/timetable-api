@@ -1,5 +1,6 @@
 package org.openttd.opentttimetables.rest;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Streams;
 import org.modelmapper.ModelMapper;
 import org.openttd.opentttimetables.model.Schedule;
@@ -7,9 +8,7 @@ import org.openttd.opentttimetables.model.ScheduledDispatch;
 import org.openttd.opentttimetables.model.ScheduledOrder;
 import org.openttd.opentttimetables.repo.ScheduledDispatchRepo;
 import org.openttd.opentttimetables.repo.TimetableRepo;
-import org.openttd.opentttimetables.rest.dto.ScheduleDTO;
-import org.openttd.opentttimetables.rest.dto.ScheduledDispatchDTO;
-import org.openttd.opentttimetables.rest.dto.ScheduledOrderDTO;
+import org.openttd.opentttimetables.rest.dto.*;
 import org.openttd.opentttimetables.scheduling.ScheduleSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,10 +47,21 @@ public class ScheduledDispatchController {
     @RequestMapping(path = "/scheduled-dispatch/{id}/departures")
     public List<ScheduleDTO> getDeparturesForSchedule(@PathVariable Integer id) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
-        return Stream.generate(new ScheduleSupplier(dispatch))
-                .limit(5) // TODO hardcoded value! make query param
+        return generateSchedules(dispatch) // TODO hardcoded value! make query param
                 .map(this::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @RequestMapping(path = "/scheduled-dispatch/{id}/departures-by-station")
+    public List<SchedulesByStationDTO> getDeparturesForScheduleByStation(@PathVariable Integer id) {
+        ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
+        List<Schedule> schedules = generateSchedules(dispatch).collect(Collectors.toList());
+        return toByStationDtos(schedules);
+    }
+
+    private Stream<Schedule> generateSchedules(ScheduledDispatch dispatch) {
+        return Stream.generate(new ScheduleSupplier(dispatch))
+                .limit(5);
     }
 
     private ScheduledDispatchDTO toDto(ScheduledDispatch dispatch) {
@@ -82,5 +92,28 @@ public class ScheduledDispatchController {
         ScheduledOrderDTO dto = mapper.map(order, ScheduledOrderDTO.class);
         dto.setDestination(order.getDestination().getName());
         return dto;
+    }
+
+    private List<SchedulesByStationDTO> toByStationDtos(List<Schedule> schedules) {
+        List<ScheduledOrder> arbitraryOrderList = schedules.get(0).orders();
+        List<SchedulesByStationDTO> dtos = Lists.newArrayListWithExpectedSize(arbitraryOrderList.size());
+        for (int i = 0; i < arbitraryOrderList.size(); i++) {
+            SchedulesByStationDTO byStationDto = new SchedulesByStationDTO();
+            byStationDto.setStation(arbitraryOrderList.get(0).getDestination().getName());
+
+            List<ScheduleDepartureDTO> departureDtos = Lists.newArrayListWithExpectedSize(schedules.size());
+            for (Schedule schedule : schedules) {
+                ScheduledOrder orderForThisRowAndColumn = schedule.orders().get(i);
+                departureDtos.add(new ScheduleDepartureDTO(
+                        orderForThisRowAndColumn.getArrival(),
+                        orderForThisRowAndColumn.getDeparture()
+                ));
+            }
+
+            byStationDto.setDepartures(departureDtos);
+            dtos.add(byStationDto);
+        }
+
+        return dtos;
     }
 }

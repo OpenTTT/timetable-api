@@ -176,6 +176,43 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get departures by station",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/scheduled-dispatch/:id/departures",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"scheduled-dispatch",
+						":id",
+						"departures"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "10",
+							"description": "The ID of the SD"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
