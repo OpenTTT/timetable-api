@@ -9,11 +9,13 @@ import org.openttd.opentttimetables.repo.ScheduledDispatchRepo;
 import org.openttd.opentttimetables.repo.TimetableRepo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@Profile({"dev", "test"})
 public class CreateFakeDataBean implements InitializingBean {
     private static final List<Destination> DESTINATIONS = List.of(
         Destination.station("Rosenheim"),

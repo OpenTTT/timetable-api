@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Rosenheim",
+    "destinationType": "STATION"
+  },
+  {
+    "name": "Rheinstetten Bahnhof",
+    "destinationType": "STATION"
+  },
+  {
+    "name": "R-Crailsheim",
+    "destinationType": "STATION"
+  },
+  {
+    "name": "Obernburg",
+    "destinationType": "STATION"
+  },
+  {
+    "name": "Veringenstadt",
+    "destinationType": "STATION"
+  },
+  {
+    "name": "Wien Handelskai",
+    "destinationType": "STATION"
+  }
+]
