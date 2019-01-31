@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class TimetableDTO {
+    private Integer id;
     private String name;
     private List<TimetabledOrderDTO> orders;
 
