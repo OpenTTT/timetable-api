@@ -99,7 +99,7 @@ public class ScheduledDispatchController {
         List<SchedulesByStationDTO> dtos = Lists.newArrayListWithExpectedSize(arbitraryOrderList.size());
         for (int i = 0; i < arbitraryOrderList.size(); i++) {
             SchedulesByStationDTO byStationDto = new SchedulesByStationDTO();
-            byStationDto.setStation(arbitraryOrderList.get(0).getDestination().getName());
+            byStationDto.setStation(arbitraryOrderList.get(i).getDestination().getName());
 
             List<ScheduleDepartureDTO> departureDtos = Lists.newArrayListWithExpectedSize(schedules.size());
             for (Schedule schedule : schedules) {
