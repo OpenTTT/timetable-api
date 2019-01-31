@@ -1,24 +1,17 @@
 package org.openttd.opentttimetables.rest;
 
-import org.modelmapper.ModelMapper;
-import org.openttd.opentttimetables.model.Destination;
 import org.openttd.opentttimetables.model.Timetable;
-import org.openttd.opentttimetables.model.TimetabledOrder;
 import org.openttd.opentttimetables.repo.DestinationRepo;
 import org.openttd.opentttimetables.repo.TimetableRepo;
 import org.openttd.opentttimetables.rest.dto.MapperService;
 import org.openttd.opentttimetables.rest.dto.TimetableDTO;
-import org.openttd.opentttimetables.rest.dto.TimetabledOrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 public class TimetableController {
@@ -36,6 +29,13 @@ public class TimetableController {
         return mapper.mapAll(timetableRepo.findAll(), TimetableDTO.class);
     }
 
+    @RequestMapping(path = {"/timetable/{id}"})
+    public TimetableDTO getTimetable(@PathVariable("id") Integer id) {
+        return mapper.map(
+                timetableRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
+                TimetableDTO.class
+        );
+    }
     @RequestMapping(method = RequestMethod.POST, path = "/timetable")
     public TimetableDTO createNewTimetable(@RequestBody @Valid TimetableDTO dto) {
         Timetable timetable = mapper.map(dto, Timetable.class);
