@@ -1,5 +1,5 @@
 <p align="center">
-![Logo](https://raw.githubusercontent.com/opentttimetables/opentttimetables/master/openTTT.png)
+    <img src="https://raw.githubusercontent.com/opentttimetables/opentttimetables/master/openTTT.png" alt="OpenTTT logo">
 </p>
 
 # OpenTTTimetables: Timetable API
