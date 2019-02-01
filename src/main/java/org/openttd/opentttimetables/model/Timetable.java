@@ -19,7 +19,7 @@ public class Timetable {
     /**
      * The getOrders the timetable encompasses
      */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timetable")
     private List<TimetabledOrder> orders;
 
     public Timetable() {
@@ -29,6 +29,10 @@ public class Timetable {
         Preconditions.checkArgument(orders.size() >= 2, "Timetable must contain at least two getOrders");
         this.name = name;
         this.orders = orders;
+
+        for (TimetabledOrder order : orders) {
+            order.setTimetable(this);
+        }
     }
 
     public Integer getId() {

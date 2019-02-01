@@ -1,0 +1,62 @@
+{
+  "id": 1,
+  "name": "RB 1",
+  "orders": [
+    {
+      "id": 2,
+      "destination": "Rosenheim",
+      "stayingTime": 10,
+      "travelingTime": 20,
+      "returnOrder": false
+    },
+    {
+      "id": 3,
+      "destination": "Rheinstetten Bahnhof",
+      "stayingTime": 3,
+      "travelingTime": 8,
+      "returnOrder": false
+    },
+    {
+      "id": 4,
+      "destination": "R-Crailsheim",
+      "stayingTime": 2,
+      "travelingTime": 10,
+      "returnOrder": false
+    },
+    {
+      "id": 5,
+      "destination": "Obernburg",
+      "stayingTime": 3,
+      "travelingTime": 12,
+      "returnOrder": false
+    },
+    {
+      "id": 6,
+      "destination": "Veringenstadt",
+      "stayingTime": 10,
+      "travelingTime": 13,
+      "returnOrder": false
+    },
+    {
+      "id": 7,
+      "destination": "Obernburg",
+      "stayingTime": 5,
+      "travelingTime": 11,
+      "returnOrder": false
+    },
+    {
+      "id": 8,
+      "destination": "R-Crailsheim",
+      "stayingTime": 2,
+      "travelingTime": 7,
+      "returnOrder": false
+    },
+    {
+      "id": 9,
+      "destination": "Rheinstetten Bahnhof",
+      "stayingTime": 4,
+      "travelingTime": 16,
+      "returnOrder": false
+    }
+  ]
+}

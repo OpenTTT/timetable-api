@@ -24,6 +24,9 @@ public class TimetabledOrder {
     private Integer stayingTime;
     private Integer travelingTime;
     private boolean returnOrder = false;
+    
+    @ManyToOne(optional = false)
+    private Timetable timetable;
 
     public TimetabledOrder() {
     }

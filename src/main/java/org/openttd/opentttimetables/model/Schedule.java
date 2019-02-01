@@ -15,7 +15,7 @@ public class Schedule {
     private List<ScheduledOrder> orders;
 
     public Schedule(List<ScheduledOrder> orders) {
-        Preconditions.checkArgument(orders.size() >= 2); // TODO test me
+        Preconditions.checkArgument(orders.size() >= 2, "Cannot build a schedule with empty orders"); // TODO test me
         this.orders = orders;
     }
 
