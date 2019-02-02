@@ -51,6 +51,7 @@ public class TimetableController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/timetable/{timetableId}/order/{orderId}")
+    @CrossOrigin
     public TimetabledOrderDTO updateTimetableOrder(
             @PathVariable Integer timetableId,
             @PathVariable Integer orderId,
