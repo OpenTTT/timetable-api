@@ -19,7 +19,7 @@ public class Timetable {
     /**
      * The getOrders the timetable encompasses
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timetable")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timetable", orphanRemoval = true)
     private List<TimetabledOrder> orders;
 
     public Timetable() {

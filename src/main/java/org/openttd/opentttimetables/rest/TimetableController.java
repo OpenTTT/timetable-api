@@ -46,9 +46,19 @@ public class TimetableController {
     @RequestMapping(method = RequestMethod.POST, path = "/timetable")
     @ResponseStatus(HttpStatus.CREATED)
     public TimetableDTO createNewTimetable(@RequestBody @Valid TimetableDTO dto) {
+        return upsertTimetable(dto);
+    }
+
+    private TimetableDTO upsertTimetable(@RequestBody @Valid TimetableDTO dto) {
         Timetable timetable = mapper.map(dto, Timetable.class);
         timetable.setOrders(dto.mapOrders(mapper, destinationRepo, timetable));
         return mapper.map(timetableRepo.save(timetable), TimetableDTO.class);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/timetable/{id}")
+    @CrossOrigin(origins = {"*"})
+    public TimetableDTO updateTimetable(@RequestBody @Valid TimetableDTO dto) {
+        return upsertTimetable(dto);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/timetable/{timetableId}/order/{orderId}")
