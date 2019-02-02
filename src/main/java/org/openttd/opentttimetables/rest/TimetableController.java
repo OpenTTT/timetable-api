@@ -44,9 +44,10 @@ public class TimetableController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/timetable")
+    @ResponseStatus(HttpStatus.CREATED)
     public TimetableDTO createNewTimetable(@RequestBody @Valid TimetableDTO dto) {
         Timetable timetable = mapper.map(dto, Timetable.class);
-        timetable.setOrders(dto.mapOrders(mapper, destinationRepo));
+        timetable.setOrders(dto.mapOrders(mapper, destinationRepo, timetable));
         return mapper.map(timetableRepo.save(timetable), TimetableDTO.class);
     }
 
@@ -58,6 +59,7 @@ public class TimetableController {
             @Valid @RequestBody TimetabledOrderDTO dto) {
         Timetable timetable = timetableRepo.findById(timetableId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         TimetabledOrder order = timetabledOrderRepo.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
         if (!order.getTimetable().equals(timetable)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "TimetabledOrder " + orderId + " does not belong to timetable " + timetableId);
         }
