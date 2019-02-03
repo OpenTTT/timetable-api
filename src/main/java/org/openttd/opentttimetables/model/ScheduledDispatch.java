@@ -32,7 +32,7 @@ public class ScheduledDispatch {
     /**
      * The getOrders this scheduled dispatch should encompass.
      */
-    @OneToOne(optional = false)
+    @ManyToOne
     private Timetable timetable;
 
     public ScheduledDispatch() {
