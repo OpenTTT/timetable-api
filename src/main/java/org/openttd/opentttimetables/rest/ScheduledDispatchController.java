@@ -11,11 +11,9 @@ import org.openttd.opentttimetables.repo.TimetableRepo;
 import org.openttd.opentttimetables.rest.dto.*;
 import org.openttd.opentttimetables.scheduling.ScheduleSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +42,12 @@ public class ScheduledDispatchController {
     public ScheduledDispatchDTO getScheduledDispatch(@PathVariable Integer id) {
         // TODO: Defensive programming! .get() is evil!
         return toDto(scheduledDispatchRepo.findById(id).get());
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/scheduled-dispatch/{id}")
+    @CrossOrigin("*")
+    public ScheduledDispatchDTO updateScheduledDispatch(@PathVariable Integer id, @Valid @RequestBody ScheduledDispatchDTO dto) {
+        return toDto(scheduledDispatchRepo.save(fromDto(dto)));
     }
 
     // TODO: Add @RequestParam here, too!
