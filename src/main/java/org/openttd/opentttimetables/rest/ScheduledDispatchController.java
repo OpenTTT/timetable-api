@@ -87,7 +87,8 @@ public class ScheduledDispatchController {
 
     private ScheduledDispatch fromDto(ScheduledDispatchDTO dto) {
         ScheduledDispatch scheduledDispatch = mapper.map(dto, ScheduledDispatch.class);
-        scheduledDispatch.setTimetable(timetableRepo.findByName(dto.getTimetable()));
+        // TODO: fix direct get()
+        scheduledDispatch.setTimetable(timetableRepo.findById(dto.getTimetableId()).get());
         return scheduledDispatch;
     }
 
