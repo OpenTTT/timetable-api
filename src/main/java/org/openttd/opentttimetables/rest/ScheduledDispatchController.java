@@ -50,6 +50,12 @@ public class ScheduledDispatchController {
         return toDto(scheduledDispatchRepo.save(fromDto(dto)));
     }
 
+    @RequestMapping(method = RequestMethod.POST, value="/scheduled-dispatch/")
+    @CrossOrigin("*")
+    public ScheduledDispatchDTO createScheduledDispatch(@Valid @RequestBody ScheduledDispatchDTO dto) {
+        return toDto(scheduledDispatchRepo.save(fromDto(dto)));
+    }
+
     // TODO: Add @RequestParam here, too!
     @RequestMapping(path = "/scheduled-dispatch/{id}/departures")
     public List<ScheduleDTO> getDeparturesForSchedule(@PathVariable Integer id) {
