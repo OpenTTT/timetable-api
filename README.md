@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/opentttimetables/opentttimetables/master/openTTT.png" alt="OpenTTT logo">
+    <img src="https://raw.githubusercontent.com/opentttimetables/opentttimetables/master/media/openTTT.png" alt="OpenTTT logo">
     <h1>Timetabling API</h1>
 </p>
 
