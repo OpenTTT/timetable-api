@@ -7,7 +7,8 @@ RUN mvn dependency:go-offline -B
 
 # Build artifact
 COPY src src
-RUN mvn -B package
+# Tests are assumed to be working when building an image
+RUN mvn -B package -DskipTests
 
 # Build actual backend container
 FROM openjdk:11-jre
