@@ -1,18 +1,18 @@
 package org.openttd.opentttimetables.rest.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 public class DestinationDTO {
     @NotEmpty
     @Size(min = 1, max = 250)
     private String name;
 
     @NotEmpty
-    @Pattern(regexp = "station|waypoint|depot", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(regexp = "STATION|WAYPOINT|DEPOT")
     private String destinationType;
 }
