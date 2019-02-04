@@ -5,7 +5,7 @@
 
 [![Build Status](https://travis-ci.org/opentttimetables/timetable-api.svg?branch=master)](https://travis-ci.org/opentttimetables/timetable-api)
 
-Backend for OpenTTD, a suite of programs to aid in timetabling [OpenTTD](https://www.openttd.org) trains. 
+Backend for OpenTTT, a suite of programs to aid in timetabling [OpenTTD](https://www.openttd.org) trains. 
 Yes, we're serious about trains.
 
 ## Bird eye view
