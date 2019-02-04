@@ -34,14 +34,15 @@ public class TimetableControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
+    // POST section
     @Test
-    public void testCreationOfTimetableSucceeds() throws Exception {
+    public void testPOSTOfValidTimetableSucceeds() throws Exception {
         mvc.perform(postTimetable(timetableDto()))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    public void testTimetableWithNoNameRejected() throws Exception {
+    public void testPOSTOfTimetableWithNoName400s() throws Exception {
         var dto = timetableDto();
         dto.setName("");
 
@@ -50,7 +51,7 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testTimetableWithInvalidOrdersRejected() throws Exception {
+    public void testPOSTWithInvalidOrders400s() throws Exception {
         var dto = timetableDto();
         dto.setOrders(List.of());
 
@@ -59,7 +60,7 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testUpdateOfTimetabledOrderSucceeds() throws Exception {
+    public void testPUTOfTimetabledOrderSucceeds() throws Exception {
         var dto = timetabledOrderDto();
         putTimetabledOrder(dto).andExpect(status().isOk());
 
@@ -70,14 +71,14 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testEmptyDestinationRejected() throws Exception {
+    public void testPUTOfTimetabledOrderWithEmptyDestination400s() throws Exception {
         var dto = timetabledOrderDto();
         dto.setDestination("");
         putTimetabledOrder(dto).andExpect(status().isBadRequest());
     }
 
     @Test
-    public void testTooHighStayingTimeRejected() throws Exception {
+    public void testPUTOfTimetabledOrderWithExcessivelyHighStayingTime400s() throws Exception {
         var dto = timetabledOrderDto();
         dto.setStayingTime(Integer.MAX_VALUE);
 
@@ -86,7 +87,7 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testTooLowStayingTimeRejected() throws Exception {
+    public void testPUTOfTimetabledOrderWithExcessivelyLowStayingTime400s() throws Exception {
         var dto = timetabledOrderDto();
         dto.setStayingTime(-1);
 
@@ -95,7 +96,7 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testTooHighTravelingTime() throws Exception {
+    public void testPUTOfTimetabledOrderWithExcessivelyHighTravelingTime400s() throws Exception {
         var dto = timetabledOrderDto();
         dto.setTravelingTime(Integer.MAX_VALUE);
 
@@ -104,7 +105,7 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testTooLowTravelingTime() throws Exception {
+    public void testPUTOfTimetabledOrderWithExcessivelyLowTravelingTime400s() throws Exception {
         var dto = timetabledOrderDto();
         dto.setTravelingTime(-1);
 
@@ -113,7 +114,7 @@ public class TimetableControllerTest {
     }
 
     @Test
-    public void testCannotChangeDestinationOnUpdate() throws Exception {
+    public void testPUTOfTimetabledOrderWithModifiedDestination400s() throws Exception {
         var dto = timetabledOrderDto();
         dto.setDestination("Wien");
 

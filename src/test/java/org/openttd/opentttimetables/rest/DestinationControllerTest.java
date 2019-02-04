@@ -34,7 +34,7 @@ public class DestinationControllerTest {
     private ObjectMapper mapper;
 
     @Test
-    public void testGet() throws Exception {
+    public void testGETOfAllDestinationsSucceeds() throws Exception {
         MvcResult result = mvc.perform(get("/destinations/"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -51,7 +51,7 @@ public class DestinationControllerTest {
     }
 
     @Test
-    public void testCreationOfNewStation() throws Exception {
+    public void testPOSTOfValidDestinationSucceeds() throws Exception {
         DestinationDTO destination = new DestinationDTO();
         destination.setName("Wien Ottakring");
         destination.setDestinationType("STATION");
@@ -70,10 +70,8 @@ public class DestinationControllerTest {
         assertThat(allDestinations).hasSize(6);
     }
 
-
-
     @Test
-    public void testInvalidStationTypeMissing() throws Exception {
+    public void testPOSTOfDestinationWithMissingType400s() throws Exception {
         DestinationDTO destination = new DestinationDTO();
         destination.setName("Wien Ottakring");
         String newStationJson = mapper.writeValueAsString(destination);
@@ -84,7 +82,7 @@ public class DestinationControllerTest {
     }
 
     @Test
-    public void testInvalidStationNameEmpty() throws Exception {
+    public void testPOSTOfDestinationWithMissingName400s() throws Exception {
         DestinationDTO destination = new DestinationDTO();
         destination.setDestinationType("STATION");
         String newStationJson = mapper.writeValueAsString(destination);
