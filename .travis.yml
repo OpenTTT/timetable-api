@@ -2,6 +2,9 @@ language: java
 services:
   - docker
 
+script:
+  - docker build -t openttt/openttt-backend:$TRAVIS_COMMIT
+
 deploy:
   provider: script
   script: bash docker_push.sh
