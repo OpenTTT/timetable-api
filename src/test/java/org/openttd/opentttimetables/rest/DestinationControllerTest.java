@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openttd.opentttimetables.OpenTTTimetablesApplication;
+import org.openttd.opentttimetables.repo.DestinationRepo;
 import org.openttd.opentttimetables.rest.dto.DestinationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,6 +33,9 @@ public class DestinationControllerTest {
 
     @Autowired
     private ObjectMapper mapper;
+
+    @Autowired
+    private DestinationRepo repo;
 
     @Test
     public void testGETOfAllDestinationsSucceeds() throws Exception {
@@ -68,6 +72,8 @@ public class DestinationControllerTest {
 
         List<DestinationDTO> allDestinations = readListOfDestinations(mvc.perform(get("/destinations/")).andReturn());
         assertThat(allDestinations).hasSize(6);
+
+        repo.deleteById(postedDestination.getName());
     }
 
     @Test

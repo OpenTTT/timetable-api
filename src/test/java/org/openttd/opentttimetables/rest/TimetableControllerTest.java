@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openttd.opentttimetables.OpenTTTimetablesApplication;
+import org.openttd.opentttimetables.repo.TimetableRepo;
+import org.openttd.opentttimetables.repo.TimetabledOrderRepo;
 import org.openttd.opentttimetables.rest.dto.TimetableDTO;
 import org.openttd.opentttimetables.rest.dto.TimetabledOrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
@@ -34,11 +37,19 @@ public class TimetableControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
-    // POST section
+    @Autowired
+    private TimetabledOrderRepo orderRepo;
+
+    @Autowired
+    private TimetableRepo timetableRepo;
+
     @Test
     public void testPOSTOfValidTimetableSucceeds() throws Exception {
-        mvc.perform(postTimetable(timetableDto()))
-                .andExpect(status().isCreated());
+        MvcResult result = mvc.perform(postTimetable(timetableDto()))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        timetableRepo.deleteById(readTimetable(result).getId());
     }
 
     @Test
@@ -68,6 +79,11 @@ public class TimetableControllerTest {
         TimetabledOrderDTO updatedOrder = timetableDto.getOrders().get(1);
         assertThat(updatedOrder.getStayingTime()).isEqualTo(10);
         assertThat(updatedOrder.getTravelingTime()).isEqualTo(20);
+
+        var resetDto = timetabledOrderDto();
+        resetDto.setStayingTime(3);
+        resetDto.setTravelingTime(8);
+        putTimetabledOrder(resetDto);
     }
 
     @Test
@@ -132,6 +148,10 @@ public class TimetableControllerTest {
         return mvc.perform(put("/timetable/1/order/2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(dto)));
+    }
+
+    private TimetableDTO readTimetable(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), TimetableDTO.class);
     }
 
     private static TimetableDTO timetableDto() {
