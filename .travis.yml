@@ -3,7 +3,7 @@ services:
   - docker
 
 script:
-  - docker build -t openttt/openttt-backend:$TRAVIS_COMMIT
+  - docker build . -t openttt/openttt-backend:$TRAVIS_COMMIT
 
 deploy:
   provider: script
