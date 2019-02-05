@@ -3,12 +3,14 @@ services:
   - docker
 addons:
   sonarcloud:
-    organization: "openttt" # the key of the org you chose at step #3
+    organization: "openttt"
     token:
       secure: $SONAR_TOKEN
 
 
 script:
+  # Needed for sonarqube
+  - git fetch --unshallow
   - mvn sonar:sonar
   - docker build . -t openttt/openttt-backend
 
