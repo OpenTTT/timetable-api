@@ -31,14 +31,14 @@ public class ScheduledDispatchController {
     private ScheduledDispatchRepo scheduledDispatchRepo;
 
     // TODO: check if id -> scheduled dispatch conversion can be done automatically? Spring boot surely has something here!
-    @RequestMapping(path = {"/scheduled-dispatches/", "/scheduled-dispatch/"})
+    @RequestMapping(method = RequestMethod.GET, path = {"/scheduled-dispatches/", "/scheduled-dispatch/"})
     public List<ScheduledDispatchDTO> getAllDispatches() {
         return Streams.stream(scheduledDispatchRepo.findAll())
                 .map(this::toDto)
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(path = "/scheduled-dispatch/{id}")
+    @RequestMapping(method = RequestMethod.GET, path = "/scheduled-dispatch/{id}")
     public ScheduledDispatchDTO getScheduledDispatch(@PathVariable Integer id) {
         // TODO: Defensive programming! .get() is evil!
         return toDto(scheduledDispatchRepo.findById(id).get());
@@ -57,7 +57,7 @@ public class ScheduledDispatchController {
     }
 
     // TODO: Add @RequestParam here, too!
-    @RequestMapping(path = "/scheduled-dispatch/{id}/departures")
+    @RequestMapping(method = RequestMethod.GET, path = "/scheduled-dispatch/{id}/departures")
     public List<ScheduleDTO> getDeparturesForSchedule(@PathVariable Integer id) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
         return generateSchedules(dispatch) // TODO hardcoded value! make query param
@@ -66,7 +66,7 @@ public class ScheduledDispatchController {
     }
 
     // TODO: request param is not documented
-    @RequestMapping(path = "/scheduled-dispatch/{id}/departures-by-station")
+    @RequestMapping(method = RequestMethod.GET, path = "/scheduled-dispatch/{id}/departures-by-station")
     public List<SchedulesByStationDTO> getDeparturesForScheduleByStation(@PathVariable Integer id, @RequestParam("numberOfDepartures") Integer numberOfDepartures) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
         List<Schedule> schedules = generateSchedules(dispatch, numberOfDepartures).collect(Collectors.toList());

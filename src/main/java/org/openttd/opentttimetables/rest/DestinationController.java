@@ -17,7 +17,7 @@ public class DestinationController {
     private MapperService mapper;
     @Autowired private DestinationRepo repo;
 
-    @RequestMapping("/")
+    @RequestMapping(method = RequestMethod.GET, path = "/")
     public Iterable<DestinationDTO> getDestinations() {
         return mapper.mapAll(repo.findAll(), DestinationDTO.class);
     }

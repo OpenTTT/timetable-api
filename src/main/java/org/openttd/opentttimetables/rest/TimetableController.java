@@ -30,12 +30,12 @@ public class TimetableController {
     @Autowired
     private DestinationRepo destinationRepo;
 
-    @RequestMapping(path = {"/timetable", "/timetables"})
+    @RequestMapping(method = RequestMethod.GET, path = {"/timetable", "/timetables"})
     public List<TimetableDTO> getAllTimetables() {
         return mapper.mapAll(timetableRepo.findAll(), TimetableDTO.class);
     }
 
-    @RequestMapping(path = {"/timetable/{id}"})
+    @RequestMapping(method = RequestMethod.GET, path = {"/timetable/{id}"})
     public TimetableDTO getTimetable(@PathVariable("id") Integer id) {
         return mapper.map(
                 timetableRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
