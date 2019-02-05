@@ -1,9 +1,21 @@
 language: java
 services:
   - docker
+addons:
+  sonarcloud:
+    organization: "openttt" # the key of the org you chose at step #3
+    token:
+      secure: $SONAR_TOKEN
+
 
 script:
+  - mvn clean sonar:sonar
   - docker build . -t openttt/openttt-backend
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 deploy:
   provider: script
