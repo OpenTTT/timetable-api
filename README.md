@@ -4,9 +4,10 @@
 </p>
 
 [![Build Status](https://travis-ci.org/opentttimetables/timetable-api.svg?branch=master)](https://travis-ci.org/opentttimetables/timetable-api) 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=OpenTTT_timetable-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=OpenTTT_timetable-api)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=OpenTTT_timetable-api&metric=security_rating)](https://sonarcloud.io/dashboard?id=OpenTTT_timetable-api)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=OpenTTT_timetable-api&metric=sqale_index)](https://sonarcloud.io/dashboard?id=OpenTTT_timetable-api)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=security_rating)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=sqale_index)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
 
 Backend for OpenTTT, a suite of programs to aid in timetabling [OpenTTD](https://www.openttd.org) trains. 
 Yes, we're serious about trains.
