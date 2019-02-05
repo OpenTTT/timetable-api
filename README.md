@@ -3,7 +3,10 @@
     <h1>Timetabling API</h1>
 </p>
 
-[![Build Status](https://travis-ci.org/opentttimetables/timetable-api.svg?branch=master)](https://travis-ci.org/opentttimetables/timetable-api)
+[![Build Status](https://travis-ci.org/opentttimetables/timetable-api.svg?branch=master)](https://travis-ci.org/opentttimetables/timetable-api) 
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=OpenTTT_timetable-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=OpenTTT_timetable-api)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=OpenTTT_timetable-api&metric=security_rating)](https://sonarcloud.io/dashboard?id=OpenTTT_timetable-api)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=OpenTTT_timetable-api&metric=sqale_index)](https://sonarcloud.io/dashboard?id=OpenTTT_timetable-api)
 
 Backend for OpenTTT, a suite of programs to aid in timetabling [OpenTTD](https://www.openttd.org) trains. 
 Yes, we're serious about trains.
