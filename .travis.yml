@@ -9,7 +9,7 @@ addons:
 
 
 script:
-  - mvn clean sonar:sonar
+  - mvn sonar:sonar
   - docker build . -t openttt/openttt-backend
 
 cache:
