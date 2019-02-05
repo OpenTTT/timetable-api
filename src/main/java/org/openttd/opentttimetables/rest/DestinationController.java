@@ -17,12 +17,12 @@ public class DestinationController {
     private MapperService mapper;
     @Autowired private DestinationRepo repo;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @GetMapping(path = "/")
     public Iterable<DestinationDTO> getDestinations() {
         return mapper.mapAll(repo.findAll(), DestinationDTO.class);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/")
+    @PostMapping(path = "/")
     @ResponseStatus(HttpStatus.CREATED)
     public Destination createDestination(@Valid @RequestBody DestinationDTO destination) {
         return repo.save(mapper.map(destination, Destination.class));

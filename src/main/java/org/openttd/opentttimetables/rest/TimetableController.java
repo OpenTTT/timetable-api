@@ -30,12 +30,12 @@ public class TimetableController {
     @Autowired
     private DestinationRepo destinationRepo;
 
-    @RequestMapping(method = RequestMethod.GET, path = {"/timetable", "/timetables"})
+    @GetMapping(path = {"/timetable", "/timetables"})
     public List<TimetableDTO> getAllTimetables() {
         return mapper.mapAll(timetableRepo.findAll(), TimetableDTO.class);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = {"/timetable/{id}"})
+    @GetMapping(path = {"/timetable/{id}"})
     public TimetableDTO getTimetable(@PathVariable("id") Integer id) {
         return mapper.map(
                 timetableRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
@@ -43,7 +43,7 @@ public class TimetableController {
         );
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/timetable")
+    @PostMapping(path = "/timetable")
     @ResponseStatus(HttpStatus.CREATED)
     public TimetableDTO createNewTimetable(@RequestBody @Valid TimetableDTO dto) {
         return upsertTimetable(dto);
@@ -55,13 +55,13 @@ public class TimetableController {
         return mapper.map(timetableRepo.save(timetable), TimetableDTO.class);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/timetable/{id}")
+    @PutMapping(path = "/timetable/{id}")
     @CrossOrigin(origins = {"*"})
     public TimetableDTO updateTimetable(@RequestBody @Valid TimetableDTO dto) {
         return upsertTimetable(dto);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/timetable/{timetableId}/order/{orderId}")
+    @PutMapping(path = "/timetable/{timetableId}/order/{orderId}")
     @CrossOrigin
     public TimetabledOrderDTO updateTimetableOrder(
             @PathVariable Integer timetableId,
