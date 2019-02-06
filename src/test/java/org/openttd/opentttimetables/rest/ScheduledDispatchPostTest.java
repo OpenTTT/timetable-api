@@ -43,7 +43,7 @@ public class ScheduledDispatchPostTest extends CreateMinimalTestDataControllerTe
     }
 
     private ResultActions postDispatch(ScheduledDispatchDTO dto) throws Exception {
-        return mvc.perform(post("/scheduled-dispatch")
+        return mvc.perform(post("/scheduled-dispatches")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(dto)));
     }

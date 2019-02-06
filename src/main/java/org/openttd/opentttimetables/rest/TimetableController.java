@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = {"/timetable", "/timetables"})
+@RequestMapping("/timetables")
 public class TimetableController {
     @Autowired
     private MapperService mapper;

@@ -44,7 +44,7 @@ public class DestinationPostTest extends CreateMinimalTestDataControllerTest {
         DestinationDTO destination = new DestinationDTO();
         destination.setName("Wien Ottakring");
         String newStationJson = mapper.writeValueAsString(destination);
-        mvc.perform(post("/destination/")
+        mvc.perform(post("/destinations/")
                 .content(newStationJson)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -55,7 +55,7 @@ public class DestinationPostTest extends CreateMinimalTestDataControllerTest {
         DestinationDTO destination = new DestinationDTO();
         destination.setDestinationType("STATION");
         String newStationJson = mapper.writeValueAsString(destination);
-        mvc.perform(post("/destination/")
+        mvc.perform(post("/destinations/")
                 .content(newStationJson)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());

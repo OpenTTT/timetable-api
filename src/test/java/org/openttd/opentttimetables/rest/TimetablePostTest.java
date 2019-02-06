@@ -41,7 +41,7 @@ public class TimetablePostTest extends CleanupControllerTest {
     }
 
     private MockHttpServletRequestBuilder postTimetable(TimetableDTO dto) throws JsonProcessingException {
-        return post("/timetable")
+        return post("/timetables")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(dto));
     }

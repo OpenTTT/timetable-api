@@ -45,23 +45,23 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
 
     // helper methods
     String urlForTimetable(int timetableIndex) {
-        return "/timetable/" + this.timetables.get(timetableIndex).getId() + "/";
+        return "/timetables/" + this.timetables.get(timetableIndex).getId() + "/";
     }
 
     String urlForTimetabledOrder(int timetableIndex, int orderIndex) {
-        return "/timetable/" + this.timetables.get(timetableIndex).getId() + "/order/" + this.orders.get(orderIndex).getId() + "/";
+        return "/timetables/" + this.timetables.get(timetableIndex).getId() + "/orders/" + this.orders.get(orderIndex).getId() + "/";
     }
 
     String urlForScheduledDispatch(int scheduledDispatchIndex) {
-        return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId();
+        return "/scheduled-dispatches/" + this.dispatches.get(scheduledDispatchIndex).getId();
     }
 
     String urlForScheduledDispatchDepartures(int scheduledDispatchIndex) {
-        return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures";
+        return "/scheduled-dispatches/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures";
     }
 
     String urlForScheduledDispatchDeparturesByStation(int scheduledDispatchIndex) {
-        return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures-by-station";
+        return "/scheduled-dispatches/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures-by-station";
     }
 
     protected ScheduledDispatchDTO generateScheduledDispatchDto() {

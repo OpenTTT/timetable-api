@@ -22,7 +22,7 @@ public class TimetabledOrderController {
     @Autowired
     private ModelMapper mapper;
 
-    @PutMapping(path = "/timetable/{timetableId}/order/{orderId}")
+    @PutMapping(path = "/timetables/{timetableId}/orders/{orderId}")
     @CrossOrigin
     public TimetabledOrderDTO updateTimetableOrder(
             @PathVariable Integer timetableId,

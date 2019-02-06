@@ -1,4 +1,2 @@
-tests: REST API, especially Entity <-> DTO conversion
-tests: REST API, defensive programming
 Can we do a swagger-postman-thing?
 Schedule goes wonky on, for example, with 120min interval, departures 0, 45, 60, 67 -> write test

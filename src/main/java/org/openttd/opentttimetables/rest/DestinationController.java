@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping({"/destination", "/destinations"})
+@RequestMapping("/destinations")
 public class DestinationController {
     @Autowired
     private MapperService mapper;
