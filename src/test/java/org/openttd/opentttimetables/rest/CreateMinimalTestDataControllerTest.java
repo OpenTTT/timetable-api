@@ -5,6 +5,7 @@ import org.openttd.opentttimetables.model.Destination;
 import org.openttd.opentttimetables.model.ScheduledDispatch;
 import org.openttd.opentttimetables.model.Timetable;
 import org.openttd.opentttimetables.model.TimetabledOrder;
+import org.openttd.opentttimetables.rest.dto.ScheduledDispatchDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,5 +62,14 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
 
     String urlForScheduledDispatchDeparturesByStation(int scheduledDispatchIndex) {
         return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures-by-station";
+    }
+
+    protected ScheduledDispatchDTO generateScheduledDispatchDto() {
+        ScheduledDispatchDTO dto = new ScheduledDispatchDTO();
+        dto.setId(dispatches.get(0).getId());
+        dto.setTimetableId(timetables.get(0).getId());
+        dto.setIntervalInMinutes(90);
+        dto.setDepartures(List.of(15, 45));
+        return dto;
     }
 }

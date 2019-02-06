@@ -3,12 +3,13 @@ package org.openttd.opentttimetables.rest.dto;
 import org.modelmapper.ModelMapper;
 import org.openttd.opentttimetables.util.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-@Component
+@Service
 public class MapperService {
     @Autowired
     private ModelMapper mapper;
@@ -18,8 +19,12 @@ public class MapperService {
     }
 
     public <S, T> List<T> mapAll(Iterable<S> sources, Class<T> targetClass) {
-        return Streams.stream(sources)
-                .map(s -> mapper.map(s, targetClass))
-                .collect(Collectors.toList());
+        return mapAll(Streams.stream(sources), targetClass);
+    }
+
+    public <S, T> List<T> mapAll(Stream<S> sourceStream, Class<T> targetClass) {
+        return sourceStream
+            .map(s -> mapper.map(s, targetClass))
+            .collect(Collectors.toList());
     }
 }

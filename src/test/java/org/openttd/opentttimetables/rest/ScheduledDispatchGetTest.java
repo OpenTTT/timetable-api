@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests the get methods for the {@link ScheduledDispatchController}.
@@ -31,6 +32,12 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
         assertThat(dispatch.getDepartures()).isEqualTo(dispatches.get(0).getDepartures());
         assertThat(dispatch.getTimetableId()).isEqualTo(timetables.get(0).getId());
         assertThat(dispatch.getTimetable()).isNotBlank();
+    }
+
+    @Test
+    public void testGETOfNonExistentScheduledDispatch404s() throws Exception {
+        mvc.perform(get("/scheduled-dispatches/4711"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
