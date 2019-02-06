@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@Profile({"dev", "test"})
+@Profile({"dev"})
 public class CreateFakeDataBean implements InitializingBean {
     private static final List<Destination> DESTINATIONS = List.of(
         Destination.station("Rosenheim"),

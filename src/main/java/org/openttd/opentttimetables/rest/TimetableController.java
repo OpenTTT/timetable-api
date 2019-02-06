@@ -67,8 +67,10 @@ public class TimetableController {
             @PathVariable Integer timetableId,
             @PathVariable Integer orderId,
             @Valid @RequestBody TimetabledOrderDTO dto) {
-        Timetable timetable = timetableRepo.findById(timetableId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        TimetabledOrder order = timetabledOrderRepo.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Timetable timetable = timetableRepo.findById(timetableId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "Could not find timetable with ID " + timetableId));
+        TimetabledOrder order = timetabledOrderRepo.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "Could not find timetabled order with ID " + orderId));
 
         if (!order.getTimetable().equals(timetable)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "TimetabledOrder " + orderId + " does not belong to timetable " + timetableId);

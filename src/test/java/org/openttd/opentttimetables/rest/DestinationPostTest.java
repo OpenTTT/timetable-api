@@ -1,11 +1,9 @@
 package org.openttd.opentttimetables.rest;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openttd.opentttimetables.OpenTTTimetablesApplication;
-import org.openttd.opentttimetables.repo.DestinationRepo;
 import org.openttd.opentttimetables.rest.dto.DestinationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,32 +26,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @SpringBootTest(classes = OpenTTTimetablesApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class DestinationControllerTest {
+public class DestinationPostTest extends CreateMinimalTestDataControllerTest {
     @Autowired
     private MockMvc mvc;
 
     @Autowired
     private ObjectMapper mapper;
-
-    @Autowired
-    private DestinationRepo repo;
-
-    @Test
-    public void testGETOfAllDestinationsSucceeds() throws Exception {
-        MvcResult result = mvc.perform(get("/destinations/"))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        List<DestinationDTO> dtos = readListOfDestinations(result);
-        assertThat(dtos).hasSize(5);
-        assertThat(dtos.stream().map(DestinationDTO::getName)).containsExactlyInAnyOrder(
-                "Rosenheim",
-                "Rheinstetten Bahnhof",
-                "R-Crailsheim",
-                "Obernburg",
-                "Veringenstadt"
-        );
-    }
 
     @Test
     public void testPOSTOfValidDestinationSucceeds() throws Exception {
@@ -66,14 +45,17 @@ public class DestinationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andReturn();
-        DestinationDTO postedDestination = readDestination(postResult);
+        DestinationDTO postedDestination = readDestination(mapper, postResult);
 
         assertThat(postedDestination).isEqualTo(destination);
 
-        List<DestinationDTO> allDestinations = readListOfDestinations(mvc.perform(get("/destinations/")).andReturn());
-        assertThat(allDestinations).hasSize(6);
+        List<String> allDestinations = readListOfDestinations(mapper, mvc.perform(get("/destinations/")).andReturn())
+                .stream()
+                .map(DestinationDTO::getName)
+                .collect(Collectors.toList());
 
-        repo.deleteById(postedDestination.getName());
+        assertThat(allDestinations).hasSize(3);
+        assertThat(allDestinations).contains("Wien Ottakring");
     }
 
     @Test
@@ -98,12 +80,4 @@ public class DestinationControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    private DestinationDTO readDestination(MvcResult result) throws java.io.IOException {
-        return mapper.readValue(result.getResponse().getContentAsString(), DestinationDTO.class);
-    }
-
-    private List<DestinationDTO> readListOfDestinations(MvcResult result) throws java.io.IOException {
-        return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<DestinationDTO>>() {
-        });
-    }
 }
