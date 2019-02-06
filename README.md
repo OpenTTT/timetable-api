@@ -3,7 +3,7 @@
     <h1>Timetabling API</h1>
 </p>
 
-[![Build Status](https://travis-ci.org/opentttimetables/timetable-api.svg?branch=master)](https://travis-ci.org/opentttimetables/timetable-api) 
+[![Build Status](https://travis-ci.org/OpenTTT/timetable-api.svg?branch=master)](https://travis-ci.org/OpenTTT/timetable-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.openttd.opentttimetables%3Aopenttt-backend&metric=security_rating)](https://sonarcloud.io/dashboard?id=org.openttd.opentttimetables%3Aopenttt-backend)
