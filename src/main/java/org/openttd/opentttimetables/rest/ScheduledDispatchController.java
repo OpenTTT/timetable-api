@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 public class ScheduledDispatchController {
     @Autowired
     private MapperService mapper;
+
     @Autowired
     private TimetableRepo timetableRepo;
 

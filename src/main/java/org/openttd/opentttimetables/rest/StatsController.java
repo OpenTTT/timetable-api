@@ -32,8 +32,8 @@ public class StatsController {
 
         ArrayList<ScheduledDispatch> scheduledDispatches = Lists.newArrayList(scheduledDispatchRepo.findAll());
         long totalDispatches = scheduledDispatches.size();
-        long totalDepatures = scheduledDispatches.stream().mapToInt(sd -> sd.getDepartures().size()).sum();
+        long totalDepartures = scheduledDispatches.stream().mapToInt(sd -> sd.getDepartures().size()).sum();
 
-        return new StatsDTO(totalDestinations, totalDispatches, totalDepatures, totalTimetables);
+        return new StatsDTO(totalDestinations, totalDispatches, totalDepartures, totalTimetables);
     }
 }

@@ -48,15 +48,18 @@ public class TimetableController {
         return upsertTimetable(dto);
     }
 
+    @PutMapping("/{id}")
+    public TimetableDTO updateTimetable(@PathVariable Integer id, @RequestBody @Valid TimetableDTO dto) {
+        if (!timetableRepo.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A timetable with that ID does not exist");
+        }
+
+        return upsertTimetable(dto);
+    }
+
     private TimetableDTO upsertTimetable(@RequestBody @Valid TimetableDTO dto) {
         Timetable timetable = mapper.map(dto, Timetable.class);
         timetable.setOrders(dto.mapOrders(mapper, destinationRepo, timetable));
         return mapper.map(timetableRepo.save(timetable), TimetableDTO.class);
-    }
-
-    @PutMapping
-    @CrossOrigin(origins = {"*"})
-    public TimetableDTO updateTimetable(@RequestBody @Valid TimetableDTO dto) {
-        return upsertTimetable(dto);
     }
 }

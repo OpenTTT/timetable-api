@@ -15,7 +15,9 @@ import javax.validation.Valid;
 public class DestinationController {
     @Autowired
     private MapperService mapper;
-    @Autowired private DestinationRepo repo;
+
+    @Autowired
+    private DestinationRepo repo;
 
     @GetMapping
     public Iterable<DestinationDTO> getDestinations() {
