@@ -2,25 +2,48 @@ package org.openttd.opentttimetables.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.runner.RunWith;
+import org.openttd.opentttimetables.OpenTTTimetablesApplication;
 import org.openttd.opentttimetables.rest.dto.DestinationDTO;
 import org.openttd.opentttimetables.rest.dto.TimetableDTO;
 import org.openttd.opentttimetables.rest.dto.TimetabledOrderDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
+@SpringBootTest(classes = OpenTTTimetablesApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 abstract class ControllerTest {
-    DestinationDTO readDestination(ObjectMapper mapper, MvcResult result) throws java.io.IOException {
+    @Autowired
+    MockMvc mvc;
+
+    @Autowired
+    ObjectMapper mapper;
+
+    DestinationDTO readDestination(MvcResult result) throws java.io.IOException {
         return mapper.readValue(result.getResponse().getContentAsString(), DestinationDTO.class);
     }
 
-    List<DestinationDTO> readListOfDestinations(ObjectMapper mapper, MvcResult result) throws java.io.IOException {
+    List<DestinationDTO> readListOfDestinations(MvcResult result) throws java.io.IOException {
         return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<DestinationDTO>>() {
         });
     }
 
-    TimetableDTO readTimetable(ObjectMapper mapper, MvcResult result) throws Exception {
+    TimetableDTO readTimetable(MvcResult result) throws Exception {
         return mapper.readValue(result.getResponse().getContentAsString(), TimetableDTO.class);
+    }
+
+    List<TimetableDTO> readListOfTimetables(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<TimetableDTO>>(){
+        });
     }
 
     static TimetableDTO generateTimetableDto() {
