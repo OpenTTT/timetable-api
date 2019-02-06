@@ -27,9 +27,10 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
     @Test
     public void testGETOfSpecificScheduledDispatchSucceeds() throws Exception {
         ScheduledDispatchDTO dispatch = readScheduledDispatch(mvc.perform(get(urlForScheduledDispatch(0))).andReturn());
-        assertThat(dispatch.getTimetableId()).isEqualTo(timetables.get(0).getId());
         assertThat(dispatch.getIntervalInMinutes()).isEqualTo(dispatches.get(0).getIntervalInMinutes());
         assertThat(dispatch.getDepartures()).isEqualTo(dispatches.get(0).getDepartures());
+        assertThat(dispatch.getTimetableId()).isEqualTo(timetables.get(0).getId());
+        assertThat(dispatch.getTimetable()).isNotBlank();
     }
 
     @Test
@@ -51,11 +52,11 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
 
         SchedulesByStationDTO firstStationDepartures = schedules.get(0);
         assertThat(firstStationDepartures.getStation()).isNotBlank();
-
         List<ScheduleDepartureDTO> orders = firstStationDepartures.getDepartures();
         assertThat(orders).hasSize(5); // Default value
         assertThat(orders.get(0).getArrival()).isNotBlank();
         assertThat(orders.get(0).getDeparture()).isNotBlank();
+
     }
 
     @Test

@@ -1,7 +1,7 @@
 package org.openttd.opentttimetables.rest.dto;
 
-import com.google.common.collect.Streams;
 import org.modelmapper.ModelMapper;
+import org.openttd.opentttimetables.util.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

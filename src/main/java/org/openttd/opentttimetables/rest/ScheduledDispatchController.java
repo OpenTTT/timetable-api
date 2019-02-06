@@ -1,8 +1,6 @@
 package org.openttd.opentttimetables.rest;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Streams;
-import org.modelmapper.ModelMapper;
 import org.openttd.opentttimetables.model.Schedule;
 import org.openttd.opentttimetables.model.ScheduledDispatch;
 import org.openttd.opentttimetables.model.ScheduledOrder;
@@ -23,8 +21,7 @@ import java.util.stream.Stream;
 @RequestMapping(path = {"/scheduled-dispatches", "/scheduled-dispatch"})
 public class ScheduledDispatchController {
     @Autowired
-    private ModelMapper mapper;
-
+    private MapperService mapper;
     @Autowired
     private TimetableRepo timetableRepo;
 
@@ -33,9 +30,7 @@ public class ScheduledDispatchController {
 
     @GetMapping
     public List<ScheduledDispatchDTO> getAllDispatches() {
-        return Streams.stream(scheduledDispatchRepo.findAll())
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        return mapper.mapAll(scheduledDispatchRepo.findAll(), ScheduledDispatchDTO.class);
     }
 
     @GetMapping(path = "/{id}")
