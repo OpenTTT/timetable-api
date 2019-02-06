@@ -11,7 +11,7 @@ addons:
 script:
   # Needed for sonarqube
   - git fetch --unshallow
-  - mvn sonar:sonar
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - docker build . -t openttt/openttt-backend
 
 cache:
