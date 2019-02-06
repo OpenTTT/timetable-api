@@ -31,7 +31,6 @@ public class ScheduledDispatchController {
     @Autowired
     private ScheduledDispatchRepo scheduledDispatchRepo;
 
-    // TODO: check if id -> scheduled dispatch conversion can be done automatically? Spring boot surely has something here!
     @GetMapping
     public List<ScheduledDispatchDTO> getAllDispatches() {
         return Streams.stream(scheduledDispatchRepo.findAll())
