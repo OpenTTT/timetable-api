@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;
 import org.openttd.opentttimetables.OpenTTTimetablesApplication;
-import org.openttd.opentttimetables.rest.dto.DestinationDTO;
-import org.openttd.opentttimetables.rest.dto.TimetableDTO;
-import org.openttd.opentttimetables.rest.dto.TimetabledOrderDTO;
+import org.openttd.opentttimetables.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,6 +42,24 @@ abstract class ControllerTest {
     List<TimetableDTO> readListOfTimetables(MvcResult result) throws Exception {
         return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<TimetableDTO>>(){
         });
+    }
+
+    ScheduledDispatchDTO readScheduledDispatch(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), ScheduledDispatchDTO.class);
+    }
+
+    List<ScheduledDispatchDTO> readScheduledDispatchList(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<ScheduledDispatchDTO>>() {
+        });
+    }
+
+    List<ScheduleDTO> readScheduledDispatchDepartures(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<ScheduleDTO>>(){
+        });
+    }
+
+    List<SchedulesByStationDTO> readScheduledDispatchesByStation(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<SchedulesByStationDTO>>(){});
     }
 
     static TimetableDTO generateTimetableDto() {

@@ -68,7 +68,9 @@ public class ScheduledDispatchController {
 
     // TODO: request param is not documented
     @GetMapping(path = "/{id}/departures-by-station")
-    public List<SchedulesByStationDTO> getDeparturesForScheduleByStation(@PathVariable Integer id, @RequestParam("numberOfDepartures") Integer numberOfDepartures) {
+    public List<SchedulesByStationDTO> getDeparturesForScheduleByStation(
+            @PathVariable Integer id,
+            @RequestParam(value = "numberOfDepartures", required = false, defaultValue = "5") Integer numberOfDepartures) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
         List<Schedule> schedules = generateSchedules(dispatch, numberOfDepartures).collect(Collectors.toList());
         return toByStationDtos(schedules);

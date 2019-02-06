@@ -15,20 +15,20 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
         Destination.station("Rheinstetten Bahnhof")
     );
 
-    List<Destination> savedDestinations;
+    List<Destination> destinations;
     List<TimetabledOrder> orders;
     List<Timetable> timetables;
     List<ScheduledDispatch> dispatches;
 
     @Before
     public void createMinimalTestData() {
-        this.savedDestinations = DESTINATIONS.stream()
+        this.destinations = DESTINATIONS.stream()
                 .map(d -> destinationRepo.save(d))
                 .collect(Collectors.toList());
 
         this.orders = List.of(
-                new TimetabledOrder(this.savedDestinations.get(0), 1, 9),
-                new TimetabledOrder(this.savedDestinations.get(1), 1, 9)
+                new TimetabledOrder(this.destinations.get(0), 1, 9),
+                new TimetabledOrder(this.destinations.get(1), 1, 9)
         );
 
         this.timetables = List.of(new Timetable("RB1", this.orders))
@@ -53,5 +53,13 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
 
     String urlForScheduledDispatch(int scheduledDispatchIndex) {
         return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId();
+    }
+
+    String urlForScheduledDispatchDepartures(int scheduledDispatchIndex) {
+        return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures";
+    }
+
+    String urlForScheduledDispatchDeparturesByStation(int scheduledDispatchIndex) {
+        return "/scheduled-dispatch/" + this.dispatches.get(scheduledDispatchIndex).getId() + "/departures-by-station";
     }
 }
