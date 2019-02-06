@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping(path = {"/scheduled-dispatches/", "/scheduled-dispatch/"})
+@RequestMapping(path = {"/scheduled-dispatches", "/scheduled-dispatch"})
 public class ScheduledDispatchController {
     @Autowired
     private ModelMapper mapper;
