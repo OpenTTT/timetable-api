@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = {"/timetable", "/timetables"})
 public class TimetableController {
     @Autowired
     private MapperService mapper;
@@ -28,12 +29,12 @@ public class TimetableController {
     @Autowired
     private DestinationRepo destinationRepo;
 
-    @GetMapping(path = {"/timetable", "/timetables"})
+    @GetMapping
     public List<TimetableDTO> getAllTimetables() {
         return mapper.mapAll(timetableRepo.findAll(), TimetableDTO.class);
     }
 
-    @GetMapping(path = {"/timetable/{id}"})
+    @GetMapping(path = {"/{id}"})
     public TimetableDTO getTimetable(@PathVariable("id") Integer id) {
         return mapper.map(
                 timetableRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
@@ -41,7 +42,7 @@ public class TimetableController {
         );
     }
 
-    @PostMapping(path = "/timetable")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TimetableDTO createNewTimetable(@RequestBody @Valid TimetableDTO dto) {
         return upsertTimetable(dto);
@@ -53,7 +54,7 @@ public class TimetableController {
         return mapper.map(timetableRepo.save(timetable), TimetableDTO.class);
     }
 
-    @PutMapping(path = "/timetable/{id}")
+    @PutMapping
     @CrossOrigin(origins = {"*"})
     public TimetableDTO updateTimetable(@RequestBody @Valid TimetableDTO dto) {
         return upsertTimetable(dto);

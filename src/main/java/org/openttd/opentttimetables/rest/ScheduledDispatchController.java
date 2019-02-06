@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
+@RequestMapping(path = {"/scheduled-dispatches/", "/scheduled-dispatch/"})
 public class ScheduledDispatchController {
     @Autowired
     private ModelMapper mapper;
@@ -31,33 +32,33 @@ public class ScheduledDispatchController {
     private ScheduledDispatchRepo scheduledDispatchRepo;
 
     // TODO: check if id -> scheduled dispatch conversion can be done automatically? Spring boot surely has something here!
-    @GetMapping(path = {"/scheduled-dispatches/", "/scheduled-dispatch/"})
+    @GetMapping
     public List<ScheduledDispatchDTO> getAllDispatches() {
         return Streams.stream(scheduledDispatchRepo.findAll())
                 .map(this::toDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/scheduled-dispatch/{id}")
+    @GetMapping(path = "/{id}")
     public ScheduledDispatchDTO getScheduledDispatch(@PathVariable Integer id) {
         // TODO: Defensive programming! .get() is evil!
         return toDto(scheduledDispatchRepo.findById(id).get());
     }
 
-    @PutMapping(value = "/scheduled-dispatch/{id}")
+    @PutMapping(path = "/{id}")
     @CrossOrigin("*")
     public ScheduledDispatchDTO updateScheduledDispatch(@PathVariable Integer id, @Valid @RequestBody ScheduledDispatchDTO dto) {
         return toDto(scheduledDispatchRepo.save(fromDto(dto)));
     }
 
-    @PostMapping(value="/scheduled-dispatch/")
+    @PostMapping
     @CrossOrigin("*")
     public ScheduledDispatchDTO createScheduledDispatch(@Valid @RequestBody ScheduledDispatchDTO dto) {
         return toDto(scheduledDispatchRepo.save(fromDto(dto)));
     }
 
     // TODO: Add @RequestParam here, too!
-    @GetMapping(path = "/scheduled-dispatch/{id}/departures")
+    @GetMapping(path = "/{id}/departures")
     public List<ScheduleDTO> getDeparturesForSchedule(@PathVariable Integer id) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
         return generateSchedules(dispatch) // TODO hardcoded value! make query param
@@ -66,7 +67,7 @@ public class ScheduledDispatchController {
     }
 
     // TODO: request param is not documented
-    @GetMapping(path = "/scheduled-dispatch/{id}/departures-by-station")
+    @GetMapping(path = "/{id}/departures-by-station")
     public List<SchedulesByStationDTO> getDeparturesForScheduleByStation(@PathVariable Integer id, @RequestParam("numberOfDepartures") Integer numberOfDepartures) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id).get();
         List<Schedule> schedules = generateSchedules(dispatch, numberOfDepartures).collect(Collectors.toList());

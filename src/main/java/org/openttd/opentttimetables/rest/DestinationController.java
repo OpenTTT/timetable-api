@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping({"/destination/", "/destinations/"})
+@RequestMapping({"/destination", "/destinations"})
 public class DestinationController {
     @Autowired
     private MapperService mapper;
     @Autowired private DestinationRepo repo;
 
-    @GetMapping(path = "/")
+    @GetMapping
     public Iterable<DestinationDTO> getDestinations() {
         return mapper.mapAll(repo.findAll(), DestinationDTO.class);
     }
 
-    @PostMapping(path = "/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Destination createDestination(@Valid @RequestBody DestinationDTO destination) {
         return repo.save(mapper.map(destination, Destination.class));
