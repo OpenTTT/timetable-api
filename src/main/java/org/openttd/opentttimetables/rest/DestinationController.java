@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/destinations")
+@CrossOrigin("*")
 public class DestinationController {
     @Autowired
     private MapperService mapper;

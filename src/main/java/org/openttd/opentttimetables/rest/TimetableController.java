@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/timetables")
+@CrossOrigin("*")
 public class TimetableController {
     @Autowired
     private MapperService mapper;

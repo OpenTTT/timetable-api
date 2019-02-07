@@ -7,6 +7,7 @@ import org.openttd.opentttimetables.repo.ScheduledDispatchRepo;
 import org.openttd.opentttimetables.repo.TimetableRepo;
 import org.openttd.opentttimetables.rest.dto.StatsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/stats")
+@CrossOrigin("*")
 public class StatsController {
     @Autowired
     private DestinationRepo destinationRepo;

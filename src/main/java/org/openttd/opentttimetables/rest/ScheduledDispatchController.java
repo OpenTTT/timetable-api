@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/scheduled-dispatches")
+@CrossOrigin("*")
 public class ScheduledDispatchController {
     @Autowired
     private MapperService mapper;

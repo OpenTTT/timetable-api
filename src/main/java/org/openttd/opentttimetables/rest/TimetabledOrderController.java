@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin("*")
 public class TimetabledOrderController {
     @Autowired
     private TimetableRepo timetableRepo;

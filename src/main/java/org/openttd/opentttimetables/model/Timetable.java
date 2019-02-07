@@ -58,4 +58,9 @@ public class Timetable {
     public void setOrders(List<TimetabledOrder> orders) {
         this.orders = orders;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
