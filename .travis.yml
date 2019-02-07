@@ -12,7 +12,7 @@ script:
   # Needed for sonarqube
   - git fetch --unshallow
   - mvn org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
-  - docker build . -t openttt/openttt-backend
+  - docker build . -t openttt/openttt-backend:$TRAVIS_COMMIT
 
 cache:
   directories:
