@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    # The following properties will be set by the runtime at AWS
+    url: ""
+    username: ""
+    password: ""
