@@ -2,6 +2,7 @@ package org.openttd.opentttimetables.rest;
 
 import org.openttd.opentttimetables.model.Timetable;
 import org.openttd.opentttimetables.repo.DestinationRepo;
+import org.openttd.opentttimetables.repo.TagRepo;
 import org.openttd.opentttimetables.repo.TimetableRepo;
 import org.openttd.opentttimetables.repo.TimetabledOrderRepo;
 import org.openttd.opentttimetables.rest.dto.MapperService;
@@ -29,6 +30,9 @@ public class TimetableController {
 
     @Autowired
     private DestinationRepo destinationRepo;
+
+    @Autowired
+    private TagRepo tagRepo;
 
     @GetMapping
     public List<TimetableDTO> getAllTimetables() {
@@ -61,6 +65,7 @@ public class TimetableController {
     private TimetableDTO upsertTimetable(@RequestBody @Valid TimetableDTO dto) {
         Timetable timetable = mapper.map(dto, Timetable.class);
         timetable.setOrders(dto.mapOrders(mapper, destinationRepo, timetable));
+        timetable.setTags(dto.mapTags(tagRepo));
         return mapper.map(timetableRepo.save(timetable), TimetableDTO.class);
     }
 }

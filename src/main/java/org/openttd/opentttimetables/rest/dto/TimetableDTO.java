@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.openttd.opentttimetables.model.Tag;
 import org.openttd.opentttimetables.model.Timetable;
 import org.openttd.opentttimetables.model.TimetabledOrder;
 import org.openttd.opentttimetables.repo.DestinationRepo;
+import org.openttd.opentttimetables.repo.TagRepo;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -35,5 +37,11 @@ public class TimetableDTO {
                     timetabledOrder.setTimetable(timetable);
                     return timetabledOrder;
                 }).collect(Collectors.toList());
+    }
+
+    public Set<Tag> mapTags(TagRepo tagRepo) {
+        return tags.stream()
+            .map(tagDto -> tagRepo.findById(tagDto.getId()).orElseThrow())
+            .collect(Collectors.toSet());
     }
 }

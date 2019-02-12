@@ -80,6 +80,7 @@ public class ScheduledDispatchController {
 
     private ScheduledDispatchDTO saveDto(ScheduledDispatchDTO dto) {
         ScheduledDispatch dispatch = mapper.map(dto, ScheduledDispatch.class);
+        dispatch.setTimetable(timetableRepo.findById(dto.getTimetableId()).orElseThrow());
         ScheduledDispatch savedScheduledDispatch = scheduledDispatchRepo.save(dispatch);
         return mapper.map(savedScheduledDispatch, ScheduledDispatchDTO.class);
     }
