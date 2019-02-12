@@ -41,7 +41,7 @@ public class ScheduledDispatch {
 
     public ScheduledDispatch(Integer intervalInMinutes, List<Integer> departures, Timetable timetable) {
         Preconditions.checkArgument(intervalInMinutes > 0, "interval must be larger than zero.");
-        Preconditions.checkArgument(departures.size() > 0, "departures may not be empty");
+        Preconditions.checkArgument(!departures.isEmpty(), "departures may not be empty");
         Preconditions.checkArgument(departures.stream().noneMatch(i -> i >= intervalInMinutes),
                 "no departure may be later than the interval");
         Preconditions.checkArgument(timetable.getOrders().size() >= 2, "order list must contain two getOrders");
