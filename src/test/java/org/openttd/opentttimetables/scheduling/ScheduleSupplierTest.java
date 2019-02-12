@@ -3,8 +3,10 @@ package org.openttd.opentttimetables.scheduling;
 import org.junit.Test;
 import org.openttd.opentttimetables.TestData;
 import org.openttd.opentttimetables.model.Schedule;
+import org.openttd.opentttimetables.model.ScheduledDispatch;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -62,5 +64,20 @@ public class ScheduleSupplierTest {
 
         assertThat(suppliedSchedule).isNotNull();
         assertThat(suppliedSchedule.getStartTime()).isEqualTo(LocalTime.of(2, 0));
+    }
+
+    @Test
+    public void testNonZeroFirstDepartureIsRespected() {
+        ScheduledDispatch notSoSimpleDispatch = new ScheduledDispatch(60, List.of(15, 45), TestData.SIMPLE_ORDERS);
+        ScheduleSupplier supplier = new ScheduleSupplier(notSoSimpleDispatch);
+
+        Schedule firstSchedule = supplier.get();
+        assertThat(firstSchedule.getStartTime()).isEqualTo(LocalTime.of(0, 15));
+
+        Schedule secondSchedule = supplier.get();
+        assertThat(secondSchedule.getStartTime()).isEqualTo(LocalTime.of(0, 45));
+
+        Schedule rolledOverSchedule = supplier.get();
+        assertThat(rolledOverSchedule.getStartTime()).isEqualTo(LocalTime.of(1, 15));
     }
 }

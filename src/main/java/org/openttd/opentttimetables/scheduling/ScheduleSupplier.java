@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public class ScheduleSupplier implements Supplier<Schedule> {
     private LocalTime intervalStartTime = LocalTime.MIDNIGHT;
-    private LocalTime currentTime = LocalTime.MIDNIGHT;
+    private LocalTime currentTime;
     private ScheduledDispatch scheduledDispatch;
 
     /**
@@ -19,6 +19,9 @@ public class ScheduleSupplier implements Supplier<Schedule> {
 
     public ScheduleSupplier(ScheduledDispatch scheduledDispatch) {
         this.scheduledDispatch = scheduledDispatch;
+
+        Integer firstOffset = scheduledDispatch.getDepartures().get(0);
+        this.currentTime = LocalTime.MIDNIGHT.plusMinutes(firstOffset);
     }
 
     @Override
@@ -26,7 +29,7 @@ public class ScheduleSupplier implements Supplier<Schedule> {
         DepartureScheduler scheduler = new DepartureScheduler(currentTime, scheduledDispatch.getTimetable());
 
         if (++currentOffsetIndex < scheduledDispatch.getDepartures().size()) {
-            currentTime = currentTime.plusMinutes(offsetForCurrentIndex());
+            currentTime = intervalStartTime.plusMinutes(offsetForCurrentIndex());
         } else {
             // Roll over into next interval
             intervalStartTime = intervalStartTime.plusMinutes(scheduledDispatch.getIntervalInMinutes());
