@@ -7,6 +7,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -21,4 +22,11 @@ public class ScheduledDispatchDTO {
 
     @Size(min = 1)
     private List<Integer> departures;
+
+    public void setDepartures(List<Integer> departures) {
+        this.departures = departures
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
+    }
 }
