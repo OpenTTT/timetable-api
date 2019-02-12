@@ -11,6 +11,7 @@ import org.openttd.opentttimetables.repo.DestinationRepo;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -23,6 +24,8 @@ public class TimetableDTO {
     private String name;
     @Size(min = 2)
     private List<TimetabledOrderDTO> orders;
+
+    private Set<TagDTO> tags;
 
     public List<TimetabledOrder> mapOrders(MapperService mapper, DestinationRepo destinationRepo, Timetable timetable) {
         return orders.stream()

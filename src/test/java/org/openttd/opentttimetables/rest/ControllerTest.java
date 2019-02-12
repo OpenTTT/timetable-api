@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -66,7 +67,7 @@ abstract class ControllerTest {
         return new TimetableDTO(null, "RE 1", List.of(
                 new TimetabledOrderDTO(null, "Rosenheim", 10, 10, false),
                 new TimetabledOrderDTO(null, "Rheinstetten Bahnhof", 10, 10, false)
-        ));
+        ), Set.of());
     }
 
     static TimetabledOrderDTO generateTimetabledOrderDto() {
