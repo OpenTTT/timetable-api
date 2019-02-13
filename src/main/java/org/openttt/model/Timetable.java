@@ -28,7 +28,7 @@ public class Timetable {
     @OrderColumn
     private List<TimetabledOrder> orders;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Tag> tags;
 
     public Timetable() {
