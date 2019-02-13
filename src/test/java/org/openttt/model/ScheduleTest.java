@@ -28,4 +28,12 @@ public class ScheduleTest {
         assertThat(returnOrder.getArrival()).isEqualTo(LocalTime.of(0, 20));
         assertThat(returnOrder.getDestination()).isEqualTo(TestData.VIRM4_MP_DESTINATIONS.get("Rheinstetten"));
     }
+
+    @Test
+    public void testWithCorrectReturnOrder() {
+        Schedule schedule = givenSimpleSchedule().withReturnOrder();
+        assertThat(schedule.getOrders()).hasSize(givenSimpleSchedule().getOrders().size() + 1);
+        ScheduledOrder returnOrder = schedule.getOrders().get(schedule.getOrders().size() - 1);
+        assertThat(returnOrder).isEqualTo(givenSimpleSchedule().returnOrder());
+    }
 }

@@ -1,5 +1,6 @@
 package org.openttt.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class TimetabledOrder {
     @Id
     @GeneratedValue

@@ -1,16 +1,20 @@
 package org.openttt.model;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Streams;
 
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A single vehicle schedule, i.e. the times it arrives at every stations.
  *
  * Corresponds to a single departure for a single interval of a ScheduledDispatch
  */
+@SuppressWarnings("UnstableApiUsage")
 public class Schedule {
     private List<ScheduledOrder> orders;
 
@@ -42,5 +46,10 @@ public class Schedule {
         Integer ultimateTravelTime = ultimateOrder.getTimetabledOrder().getTravelingTime();
         LocalTime returnArrival = ultimateOrder.getDeparture().plusMinutes(ultimateTravelTime);
         return new ScheduledOrder(TimetabledOrder.returnOrder(returnDestination), returnArrival);
+    }
+
+    public Schedule withReturnOrder() {
+        Stream<ScheduledOrder> ordersWithReturnOrder = Streams.concat(orders.stream(), Stream.of(returnOrder()));
+        return new Schedule(ordersWithReturnOrder.collect(Collectors.toList()));
     }
 }

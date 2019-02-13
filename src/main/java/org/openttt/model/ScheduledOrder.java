@@ -1,6 +1,8 @@
 package org.openttt.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalTime;
 
@@ -8,6 +10,8 @@ import java.time.LocalTime;
  * A single order in a Schedule
  */
 @Getter
+@EqualsAndHashCode
+@ToString
 public class ScheduledOrder {
     /**
      * The underlying order, containing the actual routing and timetabling information.
