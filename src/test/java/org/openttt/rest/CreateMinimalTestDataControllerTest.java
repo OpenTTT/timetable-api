@@ -1,10 +1,7 @@
 package org.openttt.rest;
 
 import org.junit.Before;
-import org.openttt.model.Destination;
-import org.openttt.model.ScheduledDispatch;
-import org.openttt.model.Timetable;
-import org.openttt.model.TimetabledOrder;
+import org.openttt.model.*;
 import org.openttt.rest.dto.ScheduledDispatchDTO;
 
 import java.util.List;
@@ -20,6 +17,7 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
     List<TimetabledOrder> orders;
     List<Timetable> timetables;
     List<ScheduledDispatch> dispatches;
+    List<Tag> tags;
 
     @Before
     public void createMinimalTestData() {
@@ -32,7 +30,13 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
                 new TimetabledOrder(this.destinations.get(1), 1, 9)
         );
 
-        this.timetables = List.of(new Timetable("RB1", this.orders))
+        Timetable rb1 = new Timetable("RB1", this.orders);
+        Timetable rb1Reversed = new Timetable("RB1-reversed", List.of(
+                new TimetabledOrder(this.destinations.get(1), 1, 9),
+                new TimetabledOrder(this.destinations.get(0), 1, 9)
+        ));
+
+        this.timetables = List.of(rb1, rb1Reversed)
                 .stream()
                 .map(timetable -> timetableRepo.save(timetable))
                 .collect(Collectors.toList());
@@ -40,6 +44,11 @@ public abstract class CreateMinimalTestDataControllerTest extends CleanupControl
         this.dispatches = List.of(new ScheduledDispatch(60, List.of(0, 30), this.timetables.get(0)))
                 .stream()
                 .map(dispatch -> scheduledDispatchRepo.save(dispatch))
+                .collect(Collectors.toList());
+
+        this.tags = List.of(new Tag(null, "S-Bahn", "#ffffff", "#ffffff"))
+                .stream()
+                .map(tag -> tagRepo.save(tag))
                 .collect(Collectors.toList());
     }
 

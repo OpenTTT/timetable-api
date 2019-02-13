@@ -27,6 +27,9 @@ abstract class ControllerTest {
     @Autowired
     ObjectMapper mapper;
 
+    @Autowired
+    MapperService dtoMapper;
+
     DestinationDTO readDestination(MvcResult result) throws java.io.IOException {
         return mapper.readValue(result.getResponse().getContentAsString(), DestinationDTO.class);
     }
