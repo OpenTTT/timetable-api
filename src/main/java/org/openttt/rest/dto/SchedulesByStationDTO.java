@@ -21,24 +21,24 @@ public class SchedulesByStationDTO {
 
     public static List<SchedulesByStationDTO> fromSchedules(List<Schedule> schedules) {
         List<ScheduledOrder> arbitraryOrderList = schedules.get(0).getOrders();
-        List<SchedulesByStationDTO> dtos = Lists.newArrayListWithExpectedSize(arbitraryOrderList.size());
+        List<SchedulesByStationDTO> resultRows = Lists.newArrayListWithExpectedSize(arbitraryOrderList.size());
         for (int i = 0; i < arbitraryOrderList.size(); i++) {
-            SchedulesByStationDTO byStationDto = new SchedulesByStationDTO();
-            byStationDto.setStation(arbitraryOrderList.get(i).getDestination().getName());
+            SchedulesByStationDTO row = new SchedulesByStationDTO();
+            row.setStation(arbitraryOrderList.get(i).getDestination().getName());
 
-            List<ScheduleDepartureDTO> departureDtos = Lists.newArrayListWithExpectedSize(schedules.size());
+            List<ScheduleDepartureDTO> resultColumns = Lists.newArrayListWithExpectedSize(schedules.size());
             for (Schedule schedule : schedules) {
                 ScheduledOrder orderForThisRowAndColumn = schedule.getOrders().get(i);
-                departureDtos.add(new ScheduleDepartureDTO(
+                resultColumns.add(new ScheduleDepartureDTO(
                         ScheduledOrderDTO.TIME_FORMAT.format(orderForThisRowAndColumn.getArrival()),
                         ScheduledOrderDTO.TIME_FORMAT.format(orderForThisRowAndColumn.getDeparture())
                 ));
             }
 
-            byStationDto.setDepartures(departureDtos);
-            dtos.add(byStationDto);
+            row.setDepartures(resultColumns);
+            resultRows.add(row);
         }
 
-        return dtos;
+        return resultRows;
     }
 }
