@@ -1,12 +1,16 @@
 package org.openttt.model;
 
 import com.google.common.base.Preconditions;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Timetable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,40 +44,8 @@ public class Timetable {
         }
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<TimetabledOrder> getOrders() {
-        return orders;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setOrders(List<TimetabledOrder> orders) {
-        this.orders = orders;
-    }
-
     @Override
     public String toString() {
         return name;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
     }
 }
