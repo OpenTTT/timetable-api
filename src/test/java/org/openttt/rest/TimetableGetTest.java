@@ -12,7 +12,7 @@ public class TimetableGetTest extends CreateMinimalTestDataControllerTest {
     @Test
     public void testGETOfAllTimetablesSucceeds() throws Exception {
         List<TimetableDTO> dtos = readListOfTimetables(mvc.perform(get("/timetables")).andReturn());
-        assertThat(dtos).hasSize(1);
+        assertThat(dtos).hasSize(timetables.size());
     }
 
     @Test
