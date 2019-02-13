@@ -80,4 +80,12 @@ public class ScheduleSupplierTest {
         Schedule rolledOverSchedule = supplier.get();
         assertThat(rolledOverSchedule.getStartTime()).isEqualTo(LocalTime.of(1, 15));
     }
+
+    @Test
+    public void testSupplierRespectsReturnOrder() {
+        ScheduleSupplier supplier = new ScheduleSupplier(TestData.SIMPLE_DISPATCH, true);
+        Schedule schedule = supplier.get();
+
+        assertThat(schedule.getOrders()).hasSize(TestData.SIMPLE_ORDERS.getOrders().size() + 1);
+    }
 }

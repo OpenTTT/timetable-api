@@ -15,10 +15,17 @@ import java.util.List;
 public class DepartureScheduler {
     private LocalTime startTime;
     private Timetable timetable;
+    private Boolean withReturnOrder;
+
 
     public DepartureScheduler(LocalTime startTime, Timetable timetable) {
+        this(startTime, timetable, false);
+    }
+
+    public DepartureScheduler(LocalTime startTime, Timetable timetable, Boolean withReturnOrder) {
         this.startTime = startTime;
         this.timetable = timetable;
+        this.withReturnOrder = withReturnOrder;
     }
 
     public Schedule schedule() {
@@ -33,6 +40,12 @@ public class DepartureScheduler {
                     .plusMinutes(timetabledOrder.getTravelingTime());
         }
 
-        return new Schedule(scheduledOrders);
+        Schedule schedule = new Schedule(scheduledOrders);
+
+        if (withReturnOrder) {
+            return schedule.withReturnOrder();
+        } else {
+            return schedule;
+        }
     }
 }

@@ -10,6 +10,7 @@ public class ScheduleSupplier implements Supplier<Schedule> {
     private LocalTime intervalStartTime = LocalTime.MIDNIGHT;
     private LocalTime currentTime;
     private ScheduledDispatch scheduledDispatch;
+    private Boolean withReturnOrder;
 
     /**
      * The current index of departures we are looking at, cycling back to 0 once all departures of a ScheduledDispatch
@@ -18,7 +19,12 @@ public class ScheduleSupplier implements Supplier<Schedule> {
     private int currentOffsetIndex = 0;
 
     public ScheduleSupplier(ScheduledDispatch scheduledDispatch) {
+        this(scheduledDispatch, false);
+    }
+
+    public ScheduleSupplier(ScheduledDispatch scheduledDispatch, Boolean withReturnOrder) {
         this.scheduledDispatch = scheduledDispatch;
+        this.withReturnOrder = withReturnOrder;
 
         Integer firstOffset = scheduledDispatch.getDepartures().get(0);
         this.currentTime = LocalTime.MIDNIGHT.plusMinutes(firstOffset);
@@ -26,7 +32,7 @@ public class ScheduleSupplier implements Supplier<Schedule> {
 
     @Override
     public Schedule get() {
-        DepartureScheduler scheduler = new DepartureScheduler(currentTime, scheduledDispatch.getTimetable());
+        DepartureScheduler scheduler = new DepartureScheduler(currentTime, scheduledDispatch.getTimetable(), withReturnOrder);
 
         if (++currentOffsetIndex < scheduledDispatch.getDepartures().size()) {
             currentTime = intervalStartTime.plusMinutes(offsetForCurrentIndex());

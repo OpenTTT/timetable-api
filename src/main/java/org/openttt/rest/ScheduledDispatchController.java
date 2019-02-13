@@ -60,21 +60,25 @@ public class ScheduledDispatchController {
     @GetMapping(path = "/{id}/departures")
     public List<ScheduleDTO> getDeparturesForSchedule(
             @PathVariable Integer id,
-            @RequestParam(value = "numberOfDepartures", required = false, defaultValue = "5") Integer numberOfDepartures) {
+            @RequestParam(value = "numberOfDepartures", required = false, defaultValue = "5") Integer numberOfDepartures,
+            @RequestParam(value = "withReturnOrder", required = false, defaultValue = "false") Boolean withReturnOrder
+    ) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id)
                 .orElseThrow(ScheduledDispatchNotFoundException::new);
-        return mapper.mapAll(generateSchedules(dispatch, numberOfDepartures), ScheduleDTO.class);
+        return mapper.mapAll(generateSchedules(dispatch, numberOfDepartures, withReturnOrder), ScheduleDTO.class);
     }
 
     @GetMapping(path = "/{id}/departures-by-station")
     public List<SchedulesByStationDTO> getDeparturesForScheduleByStation(
             @PathVariable Integer id,
-            @RequestParam(value = "numberOfDepartures", required = false, defaultValue = "5") Integer numberOfDepartures) {
+            @RequestParam(value = "numberOfDepartures", required = false, defaultValue = "5") Integer numberOfDepartures,
+            @RequestParam(value = "withReturnOrder", required = false, defaultValue = "false") Boolean withReturnOrder
+    ) {
         ScheduledDispatch dispatch = scheduledDispatchRepo.findById(id)
                 .orElseThrow(ScheduledDispatchNotFoundException::new);
 
         // This one is a special case, the transferal mapping logic is a bit too complex for ModelMapper
-        List<Schedule> schedules = generateSchedules(dispatch, numberOfDepartures).collect(Collectors.toList());
+        List<Schedule> schedules = generateSchedules(dispatch, numberOfDepartures, withReturnOrder).collect(Collectors.toList());
         return SchedulesByStationDTO.fromSchedules(schedules);
     }
 
@@ -85,8 +89,8 @@ public class ScheduledDispatchController {
         return mapper.map(savedScheduledDispatch, ScheduledDispatchDTO.class);
     }
 
-    private Stream<Schedule> generateSchedules(ScheduledDispatch dispatch, Integer numberOfDepartures) {
-        return Stream.generate(new ScheduleSupplier(dispatch))
+    private Stream<Schedule> generateSchedules(ScheduledDispatch dispatch, Integer numberOfDepartures, Boolean withReturnOrder) {
+        return Stream.generate(new ScheduleSupplier(dispatch, withReturnOrder))
                 .limit(numberOfDepartures);
 
     }

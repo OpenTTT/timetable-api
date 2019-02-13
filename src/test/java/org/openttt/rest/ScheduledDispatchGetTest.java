@@ -63,7 +63,6 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
         assertThat(orders).hasSize(5); // Default value
         assertThat(orders.get(0).getArrival()).isNotBlank();
         assertThat(orders.get(0).getDeparture()).isNotBlank();
-
     }
 
     @Test
@@ -72,6 +71,18 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
         assertThat(departures).hasSize(1);
     }
 
+    @Test
+    public void testGETOfDeparturesByStationRespectsReturnOrder() throws Exception {
+        List<SchedulesByStationDTO> schedules = readScheduledDispatchesByStation(
+                mvc.perform(get(urlForScheduledDispatchDeparturesByStation(0))
+                        .param("withReturnOrder", "true")).andReturn());
+
+        assertThat(schedules).hasSize(timetables.get(0).getOrders().size() + 1);
+
+        SchedulesByStationDTO lastDestination = schedules.get(schedules.size() - 1);
+        assertThat(lastDestination.getStation()).isEqualTo(destinations.get(0).getName());
+    }
+    
     private List<ScheduleDepartureDTO> getDepartures(Integer numberOfDepartures) throws Exception {
         MvcResult mvcResult = requestDeparturesByStation(numberOfDepartures).andReturn();
         return readScheduledDispatchesByStation(mvcResult).get(0).getDepartures();
@@ -82,6 +93,4 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
                 .param("numberOfDepartures", numberOfDepartures.toString());
         return mvc.perform(getRequest);
     }
-
-
 }
