@@ -59,6 +59,8 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
 
         SchedulesByStationDTO firstStationDepartures = schedules.get(0);
         assertThat(firstStationDepartures.getStation()).isNotBlank();
+        assertThat(firstStationDepartures.getReturnTrip()).isFalse();
+
         List<ScheduleDepartureDTO> orders = firstStationDepartures.getDepartures();
         assertThat(orders).hasSize(5); // Default value
         assertThat(orders.get(0).getArrival()).isNotBlank();
@@ -80,6 +82,7 @@ public class ScheduledDispatchGetTest extends CreateMinimalTestDataControllerTes
         assertThat(schedules).hasSize(timetables.get(0).getOrders().size() + 1);
 
         SchedulesByStationDTO lastDestination = schedules.get(schedules.size() - 1);
+        assertThat(lastDestination.getReturnTrip()).isTrue();
         assertThat(lastDestination.getStation()).isEqualTo(destinations.get(0).getName());
     }
     

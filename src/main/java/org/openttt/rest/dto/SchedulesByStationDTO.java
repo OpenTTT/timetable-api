@@ -17,6 +17,7 @@ import java.util.List;
 public class SchedulesByStationDTO {
     private String station;
     private List<ScheduleDepartureDTO> departures;
+    private Boolean returnTrip;
 
 
     public static List<SchedulesByStationDTO> fromSchedules(List<Schedule> schedules) {
@@ -36,6 +37,8 @@ public class SchedulesByStationDTO {
             }
 
             row.setDepartures(resultColumns);
+            row.setReturnTrip(arbitraryOrderList.get(i).getTimetabledOrder().isReturnOrder());
+
             resultRows.add(row);
         }
 
