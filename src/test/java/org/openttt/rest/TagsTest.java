@@ -5,14 +5,31 @@ import org.openttt.rest.dto.TagDTO;
 import org.openttt.rest.dto.TimetableDTO;
 import org.springframework.http.MediaType;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class TagsTest extends CreateMinimalTestDataControllerTest {
+    @Test
+    public void testGETAllTagsSucceeds() throws Exception {
+        List<TagDTO> tags = readTags(mvc.perform(get("/tags")).andReturn());
+        assertThat(tags).hasSameSizeAs(this.tags);
+    }
+
+    @Test
+    public void testPOSTTagSucceeds() throws Exception {
+        mvc.perform(post("/tags")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(generateTagDto())))
+                .andExpect(status().isOk());
+
+        List<TagDTO> tags = readTags(mvc.perform(get("/tags")).andReturn());
+        assertThat(tags).hasSize(this.tags.size() + 1);
+    }
+
     // A test-usage oopsie :)
     @Test
     public void testThatTagsCanBeAppliedToMoreThanOneTimetable() throws Exception {

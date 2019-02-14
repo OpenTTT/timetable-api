@@ -66,6 +66,10 @@ abstract class ControllerTest {
         return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<SchedulesByStationDTO>>(){});
     }
 
+    List<TagDTO> readTags(MvcResult result) throws Exception {
+        return mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<TagDTO>>() {
+        });
+    }
     static TimetableDTO generateTimetableDto() {
         return new TimetableDTO(null, "RE 1", List.of(
                 new TimetabledOrderDTO(null, "Rosenheim", 10, 10, false),
@@ -76,4 +80,9 @@ abstract class ControllerTest {
     static TimetabledOrderDTO generateTimetabledOrderDto() {
         return new TimetabledOrderDTO(2, "Rheinstetten Bahnhof", 10, 20, false);
     }
+
+    static TagDTO generateTagDto() {
+        return new TagDTO(null, "RailJet", "#FF0000", "#FFFFFF");
+    }
+
 }
