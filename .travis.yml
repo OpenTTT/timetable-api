@@ -9,6 +9,7 @@ addons:
 
 script:
   # Needed for sonarqube
+  - git fetch --unshallow
   - mvn org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 cache:
