@@ -76,6 +76,17 @@ public class TimetabledOrderPutTest extends CreateMinimalTestDataControllerTest 
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void testPUTWithChangingTimetableId400s() throws Exception {
+        var dto = generateTimetabledOrderDto();
+        dto.setId(timetables.get(0).getOrders().get(1).getId());
+        mvc.perform(put(urlForTimetabledOrder(1, 0))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(dto)))
+                .andExpect(status().isBadRequest());
+
+    }
+
     private ResultActions putTimetabledOrder(TimetabledOrderDTO dto) throws Exception {
         dto.setId(timetables.get(0).getOrders().get(1).getId());
         return mvc.perform(put(urlForTimetabledOrder(0, 1))
